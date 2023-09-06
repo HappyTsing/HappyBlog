@@ -1,3 +1,193 @@
-site_name: My Docs
+site_name: HappyBlog
+site_description: "这里是乐乐的个人博客，希望与你共同进步！"
+site_url: "https://leqing.work/"
+site_author: "HappyTsing"
+repo_name: "HappyBlog"
+repo_url: "https://github.com/HappyTsing/HappyBlog"
+edit_uri: "https://github.com/HappyTsing/HappyBlog/blob/master/site"
+copyright: "Copyright &copy; 2023 HappyTsing"
+docs_dir: "site" # 源文件目录
+site_dir: "site_build" # 生成静态文件目录
+
+nav:
+  - Home: index.md
+    # - BlockChain:
+    # - Computer:
+  - Language: 
+    - language/index.md
+    # - Java:
+    # - Python:
+    # - Rust:
+    # - Solidity:
+    - Shell:
+      - "grammar": language/shell/grammar.md
+      - "operator": language/shell/operator.md
+      - "zsh bash source ./": language/shell/run-script.md
+      - "()、(())、[]、[[]]、{}": language/shell/bracket.md
+    - MarkDown: language/base/markdown.md
+    - JSON: language/base/json.md
+    - XML: language/base/xml.md
+
+  - Security:
+    - security/index.md
+    - Soot:
+      - "IR": security/soot/ir.md
+      - "Data Flow FrameWork": security/soot/data-flow-framework.md
+      - "Call Graph and Points-to Analysis": security/soot/call-graph-and-points-to-analysis.md
+      - "Usage": security/soot/usage.md
+  - Tools:
+    - tools/index.md
+    - Git:
+      - "老司机上路": tools/git/base.md
+      - "分支那些事儿": tools/git/branch.md
+      - "浅析远程协作": tools/git/remote.md
+    - Docker:
+      - "简介及安装": tools/docker/install.md
+      - "Docker 命令": tools/docker/command.md
+      - "镜像的三种创建方法": tools/docker/create-image.md
+      - "数据卷": tools/docker/volumn.md
+
+    - Vscode:
+        - "config": tools/vscode/config.md
+        - "plugin": tools/vscode/plugin.md
+        - "vscode for c": tools/vscode/vscode-for-c.md
+
+    - Linux:
+        - "初始化": tools/linux/initialize.md
+        - "环境变量": tools/linux/env.md
+        - "实用命令及技巧": tools/linux/command.md
+        - "科学上网": tools/linux/over-wall.md
+        - "烧录 ISO": tools/linux/iso.md
+    - Vim: tools/vim.md
+    - Mac: tools/mac.md
+
+  # - Web:
+  - Other:
+    - other/index.md
+    - Blog:
+      - "Github Page + Mkdocs": "other/blog/Github Page + Mkdocs.md"
+      - "Github Page + Jekyll": "other/blog/Github Page + Jekyll.md"
+    - "玩转阿里云盘": "other/玩转阿里云盘.md"
+    - "Manjaro 无线网卡修复": "other/Manjaro 无线网卡修复.md"
+    - "图床：Picgo + Typora + OSS": other/picgo-typora-oss.md
+    - "文献管理：Zetero-Marginote3-Notion": other/zetero-marginnote3-notion.md
+
 theme:
   name: material
+  custom_dir: custom # 自定义文件夹
+  language: zh
+  features:
+    # - announce.dismiss        # 通知关闭
+    - content.action.edit # 编辑操作
+    - content.action.view # 查看操作
+    - content.code.annotate # 代码注释
+    - content.code.select # 代码注释
+    - content.code.copy # 复制代码
+    - content.tabs.link # 标签链接
+    - content.tooltips # 工具提示
+    # - header.autohide         # 自动隐藏头部
+    # - navigation.expand       # 展开导航
+    - navigation.indexes # 导航索引
+    - navigation.instant # 即时导航
+    # - navigation.prune        # 导航修剪
+    # - navigation.sections     # 导航节
+    - navigation.tabs # 导航标签
+    # - navigation.tabs.sticky  # 固定导航标签
+    - navigation.top # 导航顶部
+    - navigation.footer # 导航底部
+    - navigation.tracking # 导航跟踪
+    - search.highlight # 搜索高亮
+    - search.share # 搜索分享
+    - search.suggest # 搜索建议
+    - toc.follow # 目录跟随
+    # - toc.integrate           # 目录整合
+  palette:
+    - scheme: default
+      primary: white
+      # accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+    - scheme: slate
+      primary: grey
+      # accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode
+  font:
+    text: Noto Sans SC
+    code: Fira Code
+  favicon: img/logo/1.png
+  logo: img/logo/2.png
+  icon:
+    logo: logo
+    repo: fontawesome/brands/github
+    edit: material/file-edit-outline
+
+extra:
+  disqus: "open"
+  social:
+    # - icon: fontawesome/brands/twitter
+    #   link: https://twitter.com/xxx
+    - icon: fontawesome/brands/github
+      link: https://github.com/HappyTsing
+    - icon: fontawesome/brands/bilibili
+      link: https://space.bilibili.com/176452398/
+    - icon: fontawesome/solid/paper-plane
+      link: mailto:<wangleqing00@gmail.com> #联系方式
+  generator: false
+  analytics:
+    provider: google
+    property: G-JDXN8V33QR
+
+# Plugins
+plugins:
+  - search
+  # - tags #TODO 打标签参见: https://squidfunk.github.io/mkdocs-material/setup/setting-up-tags/
+
+# Extensions
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - toc:
+      permalink: true # 固定标题位置为当前位置
+  - pymdownx.arithmatex: # latex
+      generic: true
+  - pymdownx.betterem: # 代码块高亮
+      smart_enable: all
+      # linenums: true # 显示行号
+      # auto_title: true # 显示编程语言名称
+  - pymdownx.caret
+  - pymdownx.details
+  # - pymdownx.emoji:
+  #     emoji_index: !!python/name:materialx.emoji.twemoji
+  #     emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      use_pygments: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.keys
+  # - pymdownx.magiclink:
+  #     repo_url_shorthand: true
+  #     user: squidfunk
+  #     repo: mkdocs-material
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+extra_javascript:
+  - js/baidu-analytics.js
