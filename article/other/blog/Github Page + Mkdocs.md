@@ -1,3 +1,45 @@
+# Blog = Github Page + Mkdocs
+
+## 框架选择
+
+目前可以渲染 Markdown 的框架很多：
+
+- GitBook
+- Docsify
+- VuePress
+- Jekyll
+- MkDocs
+
+此前笔者曾使用 Jekyll 作为框架，但由于复杂的开发方式，后面就没动力更新了。
+
+为了整洁方便，不需要太多变动原始 Markdown 文件就上传到网站，笔者最终选择了 MkDocs。
+
+本教程中，我们将使用 `Material for MkDocs` 进行开发。
+
+!!! note "框架优劣对比可参考: [框架选择](https://www.zhihu.com/question/465048044/answer/2534255228)"
+
+## 配置 mkdocs
+
+```shell title="安装 mkdocs-material"
+pip install mkdocs-material
+```
+
+```shell title="创建新项目"
+mkdir my-site && cd my-site
+mkdocs new .
+```
+
+```shell title="本地调试"
+mkdocs serve
+```
+
+此时，会自动生成 `mkdocs.yaml` 文件，只需要在其中进行相应配置即可。
+
+!!! note
+
+	推荐直接复制即可，对照项目文件食用体验更佳：[HappyBlog](https://github.com/HappyTsing/HappyBlog)
+
+```yaml title="mkdocs.yaml"
 site_name: HappyBlog
 site_description: "这里是乐乐的个人博客，希望与你共同进步！"
 site_url: "https://leqing.work/"
@@ -9,92 +51,13 @@ copyright: "Copyright &copy; 2023 HappyTsing"
 docs_dir: "article" # 源文件目录
 site_dir: "site_build" # 生成静态文件目录，感觉没啥用
 
+# 具体文章位置
 nav:
   - Home: index.md
     # - BlockChain:
     # - Computer:
-  - Language: 
-    - language/index.md
-    - Java:
-      - "install": language/java/install.md
-      - "log": language/java/log.md
-      - "junit": language/java/junit.md
-      - "maven": language/java/maven.md
-      - "jacav/java、classpath、jar": language/java/javac-classpath-jar.md
-    - Python:
-      - "install": language/python/install.md
-      - "usage": language/python/usage.md
-    # - Rust:
-    # - Solidity:
-    - Shell:
-      - "grammar": language/shell/grammar.md
-      - "operator": language/shell/operator.md
-      - "zsh bash source ./": language/shell/run-script.md
-      - "()、(())、[]、[[]]、{}": language/shell/bracket.md
-    - MarkDown: language/base/markdown.md
-    - JSON: language/base/json.md
-    - XML: language/base/xml.md
-    - Go(todo): language/go/install.md
-
-  - Web:
-    - web/index.md  
-    - Html: web/html.md
-    - Css: web/css.md
-    - Nodejs: web/nodejs.md
-    - Javascript:
-      - "简介及引用": web/javascript/overview.md
-      - "基本语法": web/javascript/basic.md
-      - "引用类型及对象": web/javascript/object.md
-      - "BOM、DOM": web/javascript/bom-dom.md
-      - "事件": web/javascript/event.md
-      - "ES6": web/javascript/es6.md
-      - "异步(todo)": web/javascript/async.md
-    - Vue:
-      - "MVVM": web/vue/mvvm.md
-      - "指令": web/vue/directive.md
-      - "API": web/vue/api.md
-  - Security:
-    - security/index.md
-    - Soot:
-      - "IR": security/soot/ir.md
-      - "Data Flow FrameWork": security/soot/data-flow-framework.md
-      - "Call Graph and Points-to Analysis": security/soot/call-graph-and-points-to-analysis.md
-      - "Usage": security/soot/usage.md
-  - Tools:
-    - tools/index.md
-    - Git:
-      - "老司机上路": tools/git/base.md
-      - "分支那些事儿": tools/git/branch.md
-      - "浅析远程协作": tools/git/remote.md
-    - Docker:
-      - "简介及安装": tools/docker/install.md
-      - "Docker 命令": tools/docker/command.md
-      - "镜像的三种创建方法": tools/docker/create-image.md
-      - "数据卷": tools/docker/volumn.md
-
-    - Vscode:
-        - "config": tools/vscode/config.md
-        - "plugin": tools/vscode/plugin.md
-        - "vscode for c": tools/vscode/vscode-for-c.md
-
-    - Linux:
-        - "初始化": tools/linux/initialize.md
-        - "环境变量": tools/linux/env.md
-        - "实用命令及技巧": tools/linux/command.md
-        - "科学上网": tools/linux/over-wall.md
-        - "烧录 ISO": tools/linux/iso.md
-    - Vim: tools/vim.md
-    - Mac: tools/mac.md
-
-  - Other:
-    - other/index.md
-    - Blog:
-      - "Github Page + Mkdocs": "other/blog/Github Page + Mkdocs.md"
-      - "Github Page + Jekyll": "other/blog/Github Page + Jekyll.md"
-    - "玩转阿里云盘": "other/玩转阿里云盘.md"
-    - "Manjaro 无线网卡修复": "other/Manjaro 无线网卡修复.md"
-    - "图床：Picgo + Typora + OSS": other/picgo-typora-oss.md
-    - "文献管理：Zetero-Marginote3-Notion": other/zetero-marginnote3-notion.md
+  - Section1:
+      - sub_section1: "/path/to/file.md"
 
 theme:
   name: material
@@ -102,8 +65,8 @@ theme:
   language: zh
   features:
     # - announce.dismiss        # 通知关闭
-    # - content.action.edit # 编辑操作
-    # - content.action.view # 查看操作
+    - content.action.edit # 编辑操作
+    - content.action.view # 查看操作
     - content.code.annotate # 代码注释
     - content.code.select # 代码注释
     - content.code.copy # 复制代码
@@ -167,7 +130,7 @@ extra:
 # Plugins
 plugins:
   - search
-  # - tags #TODO 打标签参见: https://squidfunk.github.io/mkdocs-material/setup/setting-up-tags/
+  # - tags # 标签参见: https://squidfunk.github.io/mkdocs-material/setup/setting-up-tags/
 
 # Extensions
 markdown_extensions:
@@ -213,5 +176,44 @@ markdown_extensions:
       custom_checkbox: true
   - pymdownx.tilde
 
+# 自定义 js 文件
 extra_javascript:
   - js/baidu-analytics.js
+```
+
+## 配置 Github Page
+
+为了实现上传 Github 时自动部署发布，需要配置 `ci.yaml`，如下：
+
+```yaml title="ci.yaml"
+name: ci
+on:
+  push:
+    branches:
+      - master
+permissions:
+  contents: write
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
+      - run: echo "cache_id=$(date --utc '+%V')" >> $GITHUB_ENV
+      - uses: actions/cache@v3
+        with:
+          key: mkdocs-material-${{ env.cache_id }}
+          path: .cache
+          restore-keys: |
+            mkdocs-material-
+      - run: pip install mkdocs-material
+      - run: mkdocs gh-deploy --force
+```
+
+## 集成评论 giscus
+
+!!! reference
+
+    [Giscus integration](https://squidfunk.github.io/mkdocs-material/setup/adding-a-comment-system/?h=giscus#giscus-integration)

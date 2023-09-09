@@ -5,7 +5,7 @@ document.getElementById("randomLink").addEventListener("click", function(event) 
 	  'language',
 	  'security',
 	  'tools',
-	//   'blockchain',
+	  'web',
 	  'tools'
 	];
 	var randomIndex = Math.floor(Math.random() * urls.length);
