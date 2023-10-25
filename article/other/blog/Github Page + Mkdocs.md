@@ -42,7 +42,7 @@ mkdocs serve
 ```yaml title="mkdocs.yaml"
 site_name: HappyBlog
 site_description: "这里是乐乐的个人博客，希望与你共同进步！"
-site_url: "https://leqing.work/"
+site_url: "https://leqing.online/"
 site_author: "HappyTsing"
 repo_name: "HappyBlog"
 repo_url: "https://github.com/HappyTsing/HappyBlog"

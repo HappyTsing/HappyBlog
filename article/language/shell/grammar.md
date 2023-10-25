@@ -61,7 +61,7 @@ echo $$  ## 输出当前进程PID
 
 ## 五、运算符
 
-[SHELL：运算符](https://leqing.work/language/shell/operator/)
+[SHELL：运算符](https://leqing.online/language/shell/operator/)
 
 ## 六、字符串
 
@@ -98,7 +98,7 @@ bash 只支持一维数组，数组下标从 0 开始。
 
 但是[zsh 的数组下标是从 1 开始的](https://unix.stackexchange.com/questions/252368/is-there-a-reason-why-the-first-element-of-a-zsh-array-is-indexed-by-1-instead-o)，大部分 shell 的数组下标都是从 1 开始(e.g. Bourne, csh, tcsh, fish, rc, es, yash)，除了 ksh，由于 bash 是基于 ksh 的，因此它也是从 0 开始的。
 
-[Shell：zsh bash source ./执行脚本的区别](https://leqing.work/language/shell/run-script/)
+[Shell：zsh bash source ./执行脚本的区别](https://leqing.online/language/shell/run-script/)
 
 ```bash
 ## 创建数组的不同方式
@@ -130,7 +130,7 @@ unset nums[0]
 
 Bash 中的条件语句让我们可以决定一个操作是否被执行。结果取决于一个包在`[[ ]]` 或 `[]` 里的表达式，该表达式被称为 `检测命令` 或 `基元` ，这些表达式的结果是 `true|false` 。
 
-[Shell：单中括号和双中括号的区别](https://leqing.work/language/shell/bracket/)
+[Shell：单中括号和双中括号的区别](https://leqing.online/language/shell/bracket/)
 
 **注意：条件表达式要放在方括号之间，并且要有空格。**
 

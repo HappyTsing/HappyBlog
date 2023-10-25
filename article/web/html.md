@@ -93,7 +93,7 @@ HTML(HyperText Markup Language) 不是一门编程语言，而是一种用来告
 例如 `<a>` 元素可以添加大量属性，例如：
 
 ```html
-<a href="https://leqing.work.com/" title="乐乐博客" target="_blank"
+<a href="https://leqing.online.com/" title="乐乐博客" target="_blank"
   >click to block</a
 >
 ```

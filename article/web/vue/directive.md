@@ -16,7 +16,7 @@
 
 data(){
 	return {
-		url:"www.leqing.work"
+		url:"www.leqing.online"
 	}
 }
 ```

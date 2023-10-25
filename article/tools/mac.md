@@ -66,8 +66,11 @@ xcode-select --install
 - Hidden Bar：[官网](https://lemon.qq.com/)，定制菜单栏
 - Switch Key：[官网](https://lemon.qq.com/)，磁盘空间清理
 - oss browser：官网，阿里云 oss 浏览器
+- keka：[官网](https://www.keka.io/en/)，解压。
 - medis：Apple Store，redis 可视化
 - Bob：Apple Store，翻译。
+- MenubarX：Apple Store，状态栏
+- kap：[官网](https://getkap.co/)，录屏软件
 
 !!! info "体验一般，但你可能需要"
 
@@ -77,17 +80,17 @@ xcode-select --install
 **收费**
 
 - Alfred：官网。**唯一真神**。同类推荐：hapigo
-- Magnet：Apple Store，分屏软件。同类推荐：moom
-- keka：官网，解压。
+- Magnet：Apple Store，分屏软件。同类推荐：moom、Rectangle
 - Popclip：官网，划词增强（配合插件，如 Bob、Alfred、Dash 等）
-- New File Menu：官网，访达扩展
+- Qmenu，Apple Store，右键扩展，**强烈推荐**。
 - MarginNote3：官网，阅读文献
 - 饺子翻译：官方，划词翻译、截图翻译、OCR
 
-!!! info "存在免费替代品"
+!!! info "存在替代品"
 
     - DaisyDisk：官网，磁盘管理。 免费替代品：Tencent Lemon
     - Bartender 4、istat menus：收费，官网，定制菜单栏。免费替代品：Hidden Bar
+    - New File Menu：官网，访达扩展。付费替代品：Qmenu，功能更强大
 
 ### 3.1 ITerm2
 
@@ -104,7 +107,7 @@ export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_pr
 
 #### 3.1.2 shell 美化
 
-[Linux Initialize Shell And Plugins](https://leqing.work/tools/linux/initialize/)
+[Linux Initialize Shell And Plugins](https://leqing.online/tools/linux/initialize/)
 
 ### 3.2 Alfred
 
@@ -232,7 +235,7 @@ Mac 中环境变量的加载顺序如下：
 !!! note
 
     注意，如果你使用 zsh，那么需要在 `~/.zshrc` 中添加：`source ~/.bash_profile`，如果使用 bash，则无需操作，会自动生效！
-
+    
     原因：`/etc/bashrc`文件中应该设置了导入`.bash_profile`配置的操作，但是`/etc/zshrc`中没有。
 
 - `~/.bashrc` OR `~/.zshrc`

@@ -59,7 +59,7 @@ bundle add webrick
 
 ```yml
 # Site settings
-url: "https://leqing.work/"
+url: "https://leqing.online/"
 
 # SNS settings
 github_username: happytsing # 你的github账号
@@ -101,7 +101,7 @@ ba_track_id: 0ef6a02a593e0bcddc16f48386c9d8a5
 
 # Google Analytics
 ga_track_id: "UA-49627206-1" # 你用Google账号去注册一个就会给你一个这样的id
-ga_domain: leqing.work # 默认的是 auto, 这里我是自定义了的域名，你如果没有自己的域名，需要改成auto。
+ga_domain: leqing.online # 默认的是 auto, 这里我是自定义了的域名，你如果没有自己的域名，需要改成auto。
 ```
 
 #### Friends
@@ -190,17 +190,17 @@ post.puts "header-style: text"
 - [知乎 github 怎么绑定自己的域名？](https://www.zhihu.com/question/31377141)
 - [Github Docs Domain For Your Site](https://docs.github.com/cn/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site)
 
-在[阿里云 DNS](https://dns.console.aliyun.com/?spm=5176.13329450.top-nav.dbutton.42024df5rpZ6We#/dns/setting/leqing.work)设置 DNS 信息，如下：
+在[阿里云 DNS](https://dns.console.aliyun.com/?spm=5176.13329450.top-nav.dbutton.42024df5rpZ6We#/dns/setting/leqing.online)设置 DNS 信息，如下：
 
 ![DNS](https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/jekyll_blog/20210913174516.png)
 
 在 `WlqFigureBed.github.io/CNAME`中输入如下内容：
 
 ```text
-leqing.work
+leqing.online
 ```
 
-此后 Github Page 会自动识别，Github Page × Jekyll 这章的图中可以看到`Custom domain`会自动识别为`leqing.work`。
+此后 Github Page 会自动识别，Github Page × Jekyll 这章的图中可以看到`Custom domain`会自动识别为`leqing.online`。
 
 > Note：change
 >
@@ -213,7 +213,7 @@ leqing.work
 配置\_config.yml：
 
 ```yml
-url: "https://leqing.work" # your host, for absolute URL
+url: "https://leqing.online" # your host, for absolute URL
 baseurl: "" # for example, '/blog' if your blog hosted on 'host/blog'
 ```
 

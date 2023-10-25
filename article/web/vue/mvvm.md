@@ -419,7 +419,7 @@ vue 的模板语法有两类：
 
 data(){
 	return {
-		url:"www.leqing.work"
+		url:"www.leqing.online"
 		name:"乐乐博客"
 	}
 }

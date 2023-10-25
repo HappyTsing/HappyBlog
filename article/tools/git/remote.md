@@ -97,6 +97,6 @@ git pull origin <remote_branch>:<local_branch>  # 拉取远程仓库 origin 的�
 
 ## References
 
-- [Git：老司机上路](https://leqing.work/tools/git/base/)
-- [Git：分支那些事儿](https://leqing.work/tools/git/branch/)
+- [Git：老司机上路](https://leqing.online/tools/git/base/)
+- [Git：分支那些事儿](https://leqing.online/tools/git/branch/)
 - [Github 新增 SSH 密钥到 GitHub 帐户](https://docs.github.com/cn/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)

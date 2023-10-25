@@ -138,5 +138,5 @@ gco master                  # 切换回 master 分支
 
 - [Git 版本控制系列：使用 git merge --no-ff 合并分支](https://blog.csdn.net/wangqingchuan92/article/details/103137960)
 - [Git Docs 分支 - 变基](https://git-scm.com/book/zh/v2/Git-%E5%88%86%E6%94%AF-%E5%8F%98%E5%9F%BA)
-- [Git：老司机上路](https://leqing.work/tools/git/base/)
-- [Git：浅析远程协作](https://leqing.work/tools/git/remote/)
+- [Git：老司机上路](https://leqing.online/tools/git/base/)
+- [Git：浅析远程协作](https://leqing.online/tools/git/remote/)

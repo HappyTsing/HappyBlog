@@ -2,7 +2,7 @@
 
 !!! note
 
-    笔者使用的是 zsh，其默认配置许多高效的 Git 快捷键，有关 zsh 的安装可以参见：[Linux 初始化 Shell 及插件](https://leqing.work/tools/linux/initialize/)
+    笔者使用的是 zsh，其默认配置许多高效的 Git 快捷键，有关 zsh 的安装可以参见：[Linux 初始化 Shell 及插件](https://leqing.online/tools/linux/initialize/)
 
 ## git config
 
@@ -240,6 +240,6 @@ git push origin --all          # 推送所有分支和tag
 
 ## References
 
-- [Linux 初始化 Shell 和插件](https://leqing.work/tools/linux/initialize/)
-- [Git：分支那些事儿](https://leqing.work/tools/git/branch/)
-- [Git：浅析远程协作](https://leqing.work/tools/git/remote/)
+- [Linux 初始化 Shell 和插件](https://leqing.online/tools/linux/initialize/)
+- [Git：分支那些事儿](https://leqing.online/tools/git/branch/)
+- [Git：浅析远程协作](https://leqing.online/tools/git/remote/)
