@@ -1,20 +1,8 @@
----
-layout: post
-title: "文献管理：Zotero+MarginNote3+Notion"
-subtitle: "Literature Management：Zotero+MarginNote3+Notion"
-date: 2021-11-08 16:30:00
-author: "HapppyTsing"
-catalog: false
-header-style: text
-tags:
-  - 科研
----
-
-# BackGround
+## BackGround
 
 使用 Zotero 进行文献管理，MarginNote3 阅读论文，Notion 做笔记，但是三者各自独立，经过一番探索，发现可以使用 Zotero 作为中枢，连接 MN3 和 Notion，实现跨平台的完美联动。
 
-# Download icons
+## Download icons
 
 - [notion.ico](https://github.com/WlqFigureBed/FigureBed-one/raw/master/img/202111081503427.ico)
 - [marginnote.ico](https://github.com/WlqFigureBed/FigureBed-one/raw/master/img/202111081459879.ico)
@@ -23,7 +11,7 @@ Download the file to the directory：`~/Zotero/locate`
 
 ![locate](https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/zotero_mn3_notion/202111081621710.png)
 
-# Configure engines.json
+## Configure engines.json
 
 ```shell
 cd ~/Zotero/locate
@@ -72,19 +60,19 @@ Add as following
 
 Save `engines.json` and Restart Zotero！
 
-# Get keyword
+## Get keyword
 
-## Notion
+### Notion
 
 - Select the page you want to link to Zotero
 - Copy link：`command + L`
 
-## MarginNote3
+### MarginNote3
 
 - Select the notebook you want to link to Zotero
 - Copy link：`复制笔记本URL`
 
-# Link to Zotero
+## Link to Zotero
 
 Now we have links to notion and mn3's notes.
 
@@ -121,7 +109,7 @@ View our final results：
 
 Congratulations and enjoy!
 
-# config zotero
+## config zotero
 
 > update 2022.07.16
 

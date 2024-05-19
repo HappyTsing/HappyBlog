@@ -175,10 +175,17 @@ markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tilde
+  - pymdownx.arithmatex:
+      generic: true
 
 # 自定义 js 文件
 extra_javascript:
   - js/baidu-analytics.js
+  # 下面三个是 mathjax用的
+  - js/mathjax.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+
 ```
 
 ## 配置 Github Page

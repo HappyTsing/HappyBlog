@@ -13,6 +13,7 @@ nav:
   - Home: index.md
     # - BlockChain:
     # - Computer:
+    
   - Language: 
     - language/index.md
     - Java:
@@ -60,6 +61,18 @@ nav:
       - "Data Flow FrameWork": security/soot/data-flow-framework.md
       - "Call Graph and Points-to Analysis": security/soot/call-graph-and-points-to-analysis.md
       - "Usage": security/soot/usage.md
+    - 二进制逆向:
+      - "深入理解计算机系统": security/二进制逆向/深入理解计算机系统.md
+      - "中科大《编译原理》": security/二进制逆向/中科大《编译原理》.md
+      - "ELF 详解": security/二进制逆向/ELF 详解.md
+      - "PWN_二进制漏洞利用": security/二进制逆向/PWN_二进制漏洞利用.md
+
+    - 软件安全分析:
+      - "南京大学《软件分析》": security/软件安全分析/南大《软件分析》.md
+      - "程序分析技术": security/软件安全分析/程序分析技术.md
+      - "Fuzzing": security/软件安全分析/Fuzzing.md
+    - 网络安全:
+      - "OWASP TOP 10": security/网络安全/OWASP TOP 10.md
   - Tools:
     - tools/index.md
     - Git:
@@ -212,6 +225,11 @@ markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tilde
+  - pymdownx.arithmatex:
+      generic: true
 
 extra_javascript:
   - js/baidu-analytics.js
+  - js/mathjax.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
