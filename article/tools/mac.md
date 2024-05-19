@@ -27,6 +27,15 @@ sudo nvram AutoBoot=%03  # 开启
 xcode-select --install
 ```
 
+### 1.4 关闭 Mac 开机声音
+
+系统设置 -> 声音 -> 启动时播放声音，若无法设置，则输入命令：
+
+```shell
+sudo nvram SystemAudioVolume=%80
+```
+
+
 ## 二、文件管理
 
 重要的文档和笔记均使用 OneDrive 三端同步
@@ -55,22 +64,22 @@ xcode-select --install
 
 **免费**
 
-- AltTab：[Github](https://github.com/lwouis/alt-tab-macos)，cmd tab 增强，**必备神器**！
-- snipaste：[官网](https://www.snipaste.com/)，截图、贴图、录制屏幕。同类推荐：iShot
+- AltTab：[Github](https://github.com/lwouis/alt-tab-macos)，cmd tab 增强，**必备神器！**
 - ClashX：[Github](https://github.com/yichengchen/clashX)，代理。
 - PicGo：[Github](https://github.com/Molunerfinn/PicGo)，图床。
 - Iterm2：[官网](https://iterm2.com/)，shell。
+- snipaste：[官网](https://www.snipaste.com/)，截图、贴图、录制屏幕，**强烈推荐！**。同类推荐：iShot
 - JetBrains Toolbox：[官网](https://www.jetbrains.com/toolbox-app/)，IDE 管理器。
 - Tencent Lemon：[官网](https://lemon.qq.com/)，磁盘空间清理
-- 滴答清单：[官网](https://lemon.qq.com/)，磁盘空间清理
-- Hidden Bar：[官网](https://lemon.qq.com/)，定制菜单栏
-- Switch Key：[官网](https://lemon.qq.com/)，磁盘空间清理
+- 滴答清单：[官网](https://dida365.com/)，磁盘空间清理
+- Switch Key：[官网](https://lemon.qq.com/)，输入法锁定，**强烈推荐！**
+- keka：[官网](https://www.keka.io/en/)，解压，**强烈推荐！**
 - oss browser：官网，阿里云 oss 浏览器
-- keka：[官网](https://www.keka.io/en/)，解压。
-- medis：Apple Store，redis 可视化
-- Bob：Apple Store，翻译。
-- MenubarX：Apple Store，状态栏
-- kap：[官网](https://getkap.co/)，录屏软件
+- Hidden Bar：Apple Store，定制菜单栏，不再更新。
+- iBar：Apple Store，定制菜单栏，新版本 Mac **强烈推荐！**
+- Bob：Apple Store，翻译，**强烈推荐！**
+- Qmenu：Apple Store，访达右键增强，**强烈推荐！**
+- windowizard：[官网](https://okaapps.com/product/0000000001)，窗口管理，**强烈推荐！**
 
 !!! info "体验一般，但你可能需要"
 
@@ -80,9 +89,8 @@ xcode-select --install
 **收费**
 
 - Alfred：官网。**唯一真神**。同类推荐：hapigo
-- Magnet：Apple Store，分屏软件。同类推荐：moom、Rectangle
+- Magnet：Apple Store，分屏软件。同类推荐：**windowizard**
 - Popclip：官网，划词增强（配合插件，如 Bob、Alfred、Dash 等）
-- Qmenu，Apple Store，右键扩展，**强烈推荐**。
 - MarginNote3：官网，阅读文献
 - 饺子翻译：官方，划词翻译、截图翻译、OCR
 
