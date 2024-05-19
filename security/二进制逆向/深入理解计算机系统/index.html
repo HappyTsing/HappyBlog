@@ -1,0 +1,5893 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="这里是乐乐的个人博客，希望与你共同进步！">
+      
+      
+        <meta name="author" content="HappyTsing">
+      
+      
+        <link rel="canonical" href="https://leqing.online/security/%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%80%86%E5%90%91/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/">
+      
+      
+        <link rel="prev" href="../../soot/usage/">
+      
+      
+        <link rel="next" href="../%E4%B8%AD%E7%A7%91%E5%A4%A7%E3%80%8A%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E3%80%8B/">
+      
+      
+      <link rel="icon" href="../../../img/logo/1.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.23">
+    
+    
+      
+        <title>深入理解计算机系统 - HappyBlog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6543a935.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+SC:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans SC";--md-code-font:"Fira Code"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-JDXN8V33QR"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-JDXN8V33QR",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-JDXN8V33QR",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#elf" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="HappyBlog" class="md-header__button md-logo" aria-label="HappyBlog" data-md-component="logo">
+      
+  <img src="../../../img/logo/2.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HappyBlog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              深入理解计算机系统
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="grey" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/HappyTsing/HappyBlog" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    HappyBlog
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../language/" class="md-tabs__link">
+          
+  
+    
+  
+  Language
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../web/" class="md-tabs__link">
+          
+  
+    
+  
+  Web
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Security
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../tools/" class="md-tabs__link">
+          
+  
+    
+  
+  Tools
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../other/" class="md-tabs__link">
+          
+  
+    
+  
+  Other
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="HappyBlog" class="md-nav__button md-logo" aria-label="HappyBlog" data-md-component="logo">
+      
+  <img src="../../../img/logo/2.png" alt="logo">
+
+    </a>
+    HappyBlog
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/HappyTsing/HappyBlog" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    HappyBlog
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../language/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Language
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Language
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Java
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Java
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../language/java/install/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    install
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../language/java/log/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    log
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../language/java/junit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    junit
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../language/java/maven/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    maven
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../language/java/javac-classpath-jar/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    jacav/java、classpath、jar
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Python
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../language/python/install/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    install
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../language/python/usage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    usage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Shell
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Shell
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../language/shell/grammar/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    grammar
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../language/shell/operator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    operator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../language/shell/run-script/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    zsh bash source ./
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../language/shell/bracket/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ()、(())、[]、[[]]、{}
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../language/base/markdown/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MarkDown
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../language/base/json/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JSON
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../language/base/xml/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    XML
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../language/go/install/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Go(todo)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../web/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Web
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Web
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../web/html/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Html
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../web/css/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Css
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../web/nodejs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodejs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Javascript
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            Javascript
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../web/javascript/overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    简介及引用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../web/javascript/basic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    基本语法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../web/javascript/object/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    引用类型及对象
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../web/javascript/bom-dom/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BOM、DOM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../web/javascript/event/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    事件
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../web/javascript/es6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ES6
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../web/javascript/async/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    异步(todo)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Vue
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            Vue
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../web/vue/mvvm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MVVM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../web/vue/directive/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    指令
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../web/vue/api/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Security
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Security
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Soot
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Soot
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../soot/ir/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IR
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../soot/data-flow-framework/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Flow FrameWork
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../soot/call-graph-and-points-to-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Call Graph and Points-to Analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../soot/usage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Usage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    二进制逆向
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            二进制逆向
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    深入理解计算机系统
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    深入理解计算机系统
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#elf" class="md-nav__link">
+    <span class="md-ellipsis">
+      目标文件与 ELF
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="目标文件与 ELF">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linux-elf" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linux 下的可执行文件格式：ELF
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      可重定位目标文件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      可执行目标文件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      处理目标文件的工具
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      编译与链接
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="编译与链接">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#c-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      C Example
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      静态链接与静态库
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      动态链接和共享库
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="动态链接和共享库">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pltgot" class="md-nav__link">
+    <span class="md-ellipsis">
+      PLT&amp;GOT
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#x86amd" class="md-nav__link">
+    <span class="md-ellipsis">
+      程序的机器级表示：x86/amd 汇编
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="程序的机器级表示：x86/amd 汇编">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      寄存器
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="寄存器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      整数寄存器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      条件码寄存器
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      指令、操作数、控制
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      ☆ 过程与运行时栈（栈帧）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="☆ 过程与运行时栈（栈帧）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      ① 如何实现传递控制？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      ② 如何实现数据（参数和返回值）传递？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      ③ 如何实现分配和释放内存（栈）？
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      数据对齐
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      内存越界引用和缓冲区溢出
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="内存越界引用和缓冲区溢出">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1aslr-pie" class="md-nav__link">
+    <span class="md-ellipsis">
+      ①ASLR 与 PIE
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2canary" class="md-nav__link">
+    <span class="md-ellipsis">
+      ②canary
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3nxdep" class="md-nav__link">
+    <span class="md-ellipsis">
+      ③NX（DEP）
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      处理器体系结构
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      存储器层次结构
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      异常控制流
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="异常控制流">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      硬件层：异常
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      操作系统层：进程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      应用层：信号
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#todo" class="md-nav__link">
+    <span class="md-ellipsis">
+      加载与执行(TODO)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      虚拟内存
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="虚拟内存">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      一、物理和虚拟寻址
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      二、地址空间
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      三、虚拟内存的作用
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三、虚拟内存的作用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 虚拟内存作为缓存的工具
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 虚拟内存作为内存管理的工具
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 虚拟内存作为内存保护的工具
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      四、地址翻译
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      五、Linux 虚拟内存系统
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      六、内存映射
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    <span class="md-ellipsis">
+      七、动态内存分配
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    <span class="md-ellipsis">
+      八、垃圾回收
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#io" class="md-nav__link">
+    <span class="md-ellipsis">
+      IO
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_28" class="md-nav__link">
+    <span class="md-ellipsis">
+      并发
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#c" class="md-nav__link">
+    <span class="md-ellipsis">
+      C 程序中常见的与内存有关的错误
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aslr-pie" class="md-nav__link">
+    <span class="md-ellipsis">
+      ASLR 与 PIE
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cannary" class="md-nav__link">
+    <span class="md-ellipsis">
+      cannary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nx" class="md-nav__link">
+    <span class="md-ellipsis">
+      Nx
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%B8%AD%E7%A7%91%E5%A4%A7%E3%80%8A%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E3%80%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    中科大《编译原理》
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ELF%20%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ELF 详解
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PWN_%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PWN_二进制漏洞利用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    软件安全分析
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            软件安全分析
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%88%86%E6%9E%90/%E5%8D%97%E5%A4%A7%E3%80%8A%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90%E3%80%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    南京大学《软件分析》
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%88%86%E6%9E%90/%E7%A8%8B%E5%BA%8F%E5%88%86%E6%9E%90%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    程序分析技术
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E5%88%86%E6%9E%90/Fuzzing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Fuzzing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    网络安全
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            网络安全
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/OWASP%20TOP%2010/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OWASP TOP 10
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../tools/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Tools
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Tools
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Git
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Git
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/git/base/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    老司机上路
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/git/branch/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    分支那些事儿
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/git/remote/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    浅析远程协作
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Docker
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            Docker
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/docker/install/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    简介及安装
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/docker/command/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Docker 命令
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/docker/create-image/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    镜像的三种创建方法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/docker/volumn/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    数据卷
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_4" id="__nav_5_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Vscode
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            Vscode
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/vscode/config/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    config
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/vscode/plugin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    plugin
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/vscode/vscode-for-c/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    vscode for c
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Linux
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            Linux
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/linux/initialize/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    初始化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/linux/env/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    环境变量
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/linux/command/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    实用命令及技巧
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/linux/over-wall/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    科学上网
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/linux/iso/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    烧录 ISO
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/vim/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Vim
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/mac/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Mac
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../other/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Other
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Other
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Blog
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            Blog
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../other/blog/Github%20Page%20%2B%20Mkdocs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Github Page + Mkdocs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../other/blog/Github%20Page%20%2B%20Jekyll/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Github Page + Jekyll
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../other/%E7%8E%A9%E8%BD%AC%E9%98%BF%E9%87%8C%E4%BA%91%E7%9B%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    玩转阿里云盘
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../other/Manjaro%20%E6%97%A0%E7%BA%BF%E7%BD%91%E5%8D%A1%E4%BF%AE%E5%A4%8D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Manjaro 无线网卡修复
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../other/picgo-typora-oss/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    图床：Picgo + Typora + OSS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../other/zetero-marginnote3-notion/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    文献管理：Zetero-Marginote3-Notion
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#elf" class="md-nav__link">
+    <span class="md-ellipsis">
+      目标文件与 ELF
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="目标文件与 ELF">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linux-elf" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linux 下的可执行文件格式：ELF
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      可重定位目标文件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      可执行目标文件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      处理目标文件的工具
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      编译与链接
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="编译与链接">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#c-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      C Example
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      静态链接与静态库
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      动态链接和共享库
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="动态链接和共享库">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pltgot" class="md-nav__link">
+    <span class="md-ellipsis">
+      PLT&amp;GOT
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#x86amd" class="md-nav__link">
+    <span class="md-ellipsis">
+      程序的机器级表示：x86/amd 汇编
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="程序的机器级表示：x86/amd 汇编">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      寄存器
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="寄存器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      整数寄存器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      条件码寄存器
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      指令、操作数、控制
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      ☆ 过程与运行时栈（栈帧）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="☆ 过程与运行时栈（栈帧）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      ① 如何实现传递控制？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      ② 如何实现数据（参数和返回值）传递？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      ③ 如何实现分配和释放内存（栈）？
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      数据对齐
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      内存越界引用和缓冲区溢出
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="内存越界引用和缓冲区溢出">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1aslr-pie" class="md-nav__link">
+    <span class="md-ellipsis">
+      ①ASLR 与 PIE
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2canary" class="md-nav__link">
+    <span class="md-ellipsis">
+      ②canary
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3nxdep" class="md-nav__link">
+    <span class="md-ellipsis">
+      ③NX（DEP）
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      处理器体系结构
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      存储器层次结构
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      异常控制流
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="异常控制流">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      硬件层：异常
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      操作系统层：进程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      应用层：信号
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#todo" class="md-nav__link">
+    <span class="md-ellipsis">
+      加载与执行(TODO)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      虚拟内存
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="虚拟内存">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      一、物理和虚拟寻址
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      二、地址空间
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      三、虚拟内存的作用
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三、虚拟内存的作用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 虚拟内存作为缓存的工具
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 虚拟内存作为内存管理的工具
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 虚拟内存作为内存保护的工具
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      四、地址翻译
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      五、Linux 虚拟内存系统
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      六、内存映射
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    <span class="md-ellipsis">
+      七、动态内存分配
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    <span class="md-ellipsis">
+      八、垃圾回收
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#io" class="md-nav__link">
+    <span class="md-ellipsis">
+      IO
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_28" class="md-nav__link">
+    <span class="md-ellipsis">
+      并发
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#c" class="md-nav__link">
+    <span class="md-ellipsis">
+      C 程序中常见的与内存有关的错误
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aslr-pie" class="md-nav__link">
+    <span class="md-ellipsis">
+      ASLR 与 PIE
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cannary" class="md-nav__link">
+    <span class="md-ellipsis">
+      cannary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nx" class="md-nav__link">
+    <span class="md-ellipsis">
+      Nx
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+  <h1>深入理解计算机系统</h1>
+
+<div class="admonition quote">
+<p class="admonition-title">Quote</p>
+<p>2024.1.11 硕二年级于清水河寝，梳理计算机基础</p>
+<p>—— 博观而约取，厚积而薄发</p>
+</div>
+<p>根据《深入理解计算机系统》的组织顺序，首先需要理解 <strong>信息的表示和处理</strong>，即十六进制、整数、浮点数的表示等信息，随后描述了 <strong>程序的机器级表示</strong>，介绍了 8086 以及其后代 X86、x86-64 的由来，引入 <strong>二进制和汇编代码</strong>，从底层角度讲解程序指令的执行。</p>
+<p>接着，将介绍处理器体系结构和存储器层次结构。</p>
+<p>最后，关注程序在系统上的运行，首先介绍 <strong>编译、链接及 ELF 文件格式</strong>，接着讲解 <strong>可执行目标文件的加载和执行</strong>。随后将对 <strong>异常控制流</strong> 进行介绍，主要是 <strong>中断和系统调用</strong>，并引入 <strong>进程</strong> 的概念。其次，介绍 <strong>虚拟内存</strong> 及其分配回收。</p>
+<p>当然，可能还会涉及 <strong>IO</strong> 及 <strong>并发</strong> 的内容。</p>
+<h2 id="elf">目标文件与 ELF<a class="headerlink" href="#elf" title="Permanent link">&para;</a></h2>
+<h3 id="linux-elf">Linux 下的可执行文件格式：ELF<a class="headerlink" href="#linux-elf" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>参考：</p>
+<ul>
+<li><a href="https://www.openeuler.org/zh/blog/lijiajie128/2020-11-03-ELF%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90.html">ELF 文件格式解析</a></li>
+<li><a href="https://ctf-wiki.org/executable/elf/structure/basic-info/">⭐️CTF WIKI | ELF 文件</a></li>
+</ul>
+</blockquote>
+<p>通过 <code>file</code> 指令查看文件的格式，以此判断是否是 ELF 格式的文件：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>file<span class="w"> </span>a.out
+</code></pre></div>
+<p>在现在 Linux/Unix 系统中，使用可执行可链接格式（ELF, Executable and Linkable Format） 表示目标文件，类似的，Windows
+采用可移植可执行（PE, Portable Executable），Mac 使用 Mach-O 格式表示。</p>
+<p>目标文件主要有以下三种类型</p>
+<ul>
+<li>可重定位目标文件（Relocatable File）：包含二进制代码和数据，其形式可以在编译时与其他可重定位目标文件合并起来，创建一个可执行目标文件。Linux
+  系统中的后缀为 <code>.o</code> 。</li>
+<li>可执行目标文件（Executable File）：包含二进制代码和数据，其形式可以被 <strong>直接复制到内存并执行</strong>。</li>
+<li>共享目标文件（Shared Object File）：一种 <strong>特殊的可重定位目标文件</strong>
+  ，可以在加载或者运行时被动态的加载进内存并链接。一般称为库文件，后缀为 <code>.so</code></li>
+</ul>
+<p>根据 ELF 类型的不同，其文件内包含的内容也不同，主要分为可重定位目标文件和可执行目标文件两类：</p>
+<h3 id="_1">可重定位目标文件<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<p>图示为典型的 ELF 可重定位目标文件的格式：</p>
+<p><img src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/可重定位目标文件.png" alt="可重定位目标文件" style="zoom:50%;" /></p>
+<p>① <strong><u>ELF Header</u></strong> ：</p>
+<ul>
+<li>以 16 字节的序列开始，该序列描述了生成该文件的系统的字的大小和字节顺序。</li>
+<li>剩下的部分包含帮助链接器语法分析和解释目标文件的信息： ELF 头的大小、目标文件的类型（如可重定位、可执行或者共享的）、机器类型（如
+  x86-64）、<strong>节头部表</strong>（section header table）的文件偏移，以及节头部表中条目的大小和数量。</li>
+</ul>
+<p>② <strong><u>Section Header Table</u></strong> ：不同节的位置和大小是由节头部表描述的，其中目标文件中每个节都在节头部表中有一个固定大小的
+<strong>条目</strong>（entry）。</p>
+<p>③ <strong><u>Section</u></strong> ：夹在 ELF 头和节头部表之间的都是节，一个典型的 ELF 可重定位目标文件包含下面几个节：</p>
+<ul>
+<li>
+<p><strong>.text：</strong> 已编译程序的机器代码。</p>
+</li>
+<li>
+<p><strong>.rodata：</strong> 只读数据，比如 printf 语句中的格式串和开关语句的跳转表。</p>
+</li>
+<li>
+<p><strong>.data：</strong> 已初始化的全局和静态 C 变量。局部 C 变量在运行时被保存在栈中，既不岀现在 .data 节中，也不岀现在 .bss 节中。</p>
+</li>
+<li>
+<p><strong>.bss：</strong> 未初始化的全局和静态 C 变量，以及所有被初始化为 0
+  的全局或静态变量。在目标文件中这个节不占据实际的空间，它仅仅是一个占位符。目标文件格式区分已初始化和未初始化变量是为了空间效率：在目标文件中，未初始化变量不需要占据任何实际的磁盘空间。运行时，在内存中分配这些变量，初始值为
+  0。</p>
+</li>
+<li>
+<p><strong>.symtab：</strong> 一个符号表，它存放在程序中定义和引用的函数和全局变量的信息。一些程序员错误地认为必须通过 -g
+  选项来编译一个程序，才能得到符号表信息。实际上，每个可重定位目标文件在 .symtab 中都有一张符号表（除非程序员特意用 STRIP
+  命令去掉它）。然而，和编译器中的符号表不同，.symtab 符号表不包含局部变量的条目。</p>
+</li>
+<li>
+<p><strong>.rel.text：</strong> 一个 .text
+  节中位置的列表，当链接器把这个目标文件和其他文件组合时，需要修改这些位置。一般而言，任何调用外部函数或者引用全局变量的指令都需要修改。另一方面，调用本地函数的指令则不需要修改。注意，可执行目标文件中并不需要重定位信息，因此通常省略，除非用户显式地指示链接器包含这些信息。</p>
+</li>
+<li>
+<p><strong>.rel.data：</strong> 被模块引用或定义的所有全局变量的重定位信息。一般而言，任何已初始化的全局变量，如果它的初始值是一个全局变量地址或者外部定义函数的地址，都需要被修改。</p>
+</li>
+<li>
+<p><strong>.debug：</strong> 一个调试符号表，其条目是程序中定义的局部变量和类型定义，程序中定义和引用的全局变量，以及原始的 C
+  源文件。只有以 - g 选项调用编译器驱动程序时，才 会得到这张表。</p>
+</li>
+<li>
+<p><strong>.line：</strong> 原始 C 源程序中的行号和 .text 节中机器指令之间的映射。只有以 -g 选项调用编译器驱动程序时，才会得到这张表。</p>
+</li>
+<li>
+<p><strong>.strtab：</strong> 一个字符串表，其内容包括 .symtab 和 .debug 节中的符号表，以及节头部中的节名字。字符串表就是以 null
+  结尾的字符串的序列。</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>为什么未初始化的数据称为 .bss？</strong></p>
+<p>用术语 .bss 来表示未初始化的数据是很普遍的。它起始于 IBM 704 汇编语言（大约在 1957 年）中“块存储开始（Block Storage
+Start）”指令的首字母缩写，并沿用至今。一种记住 .data 和 .bss 节之间区别的简单方法是把 “bss” 看成是“更好地节省空间（Better
+Save Space）” 的缩写。</p>
+</blockquote>
+<h3 id="_2">可执行目标文件<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>链接器将多个目标文件合并成一个可执行目标文件。我们的示例 C 程序，开始时是一组 ASCII
+文本文件，现在已经被转化为一个二进制文件，且这个二进制文件包含加载程序到内存并运行它所需的所有信息。</p>
+<p>在二进制目标文件中，多个节可以被看做一个段，我们主要关注两种段，后续会被加载到内存中：</p>
+<ul>
+<li>Text：代码段，包含 ELF Header、Program Header Table、.init、.text、.rodata</li>
+<li>Data：数据段，包含 .data、.bss</li>
+</ul>
+<p>图示为典型的 ELF 可执行目标文件的格式：</p>
+<p><img alt="可执行目标文件" src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/可执行目标文件.png" /></p>
+<p>可执行目标文件的格式类似于可重定位目标文件的格式。ELF 头描述文件的总体格式。它还包括程序的 <strong>入口点</strong>（entry
+point），也就是当程序运行时要执行的第一条指令的地址。</p>
+<ul>
+<li>.text、.rodata 和 .data 节与可重定位目标文件中的节是相似的，除了这些节已经被重定位到它们最终的运行时内存地址以外。</li>
+<li>.init 节定义了一个小函数，叫做 _init，程序的初始化代码会调用它。</li>
+<li>因为可执行文件是 <strong>完全链接的</strong>（已被重定位），所以它不再需要 .rel 节。</li>
+</ul>
+<p>ELF 可执行文件被设计得很容易加载到内存，可执行文件的连续的片（chunk）被映射到连续的内存段。<strong>程序头部表</strong>（program header
+table）描述了这种映射关系。</p>
+<p>下面展示可执行文件 prog 的程序头部表，是由 OBJDUMP 显示的：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Read-only code segment
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>LOAD off    0x0000000000000000 vaddr 0x0000000000400000 paddr 0x0000000000400000 align 2**21
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>     filesz 0x000000000000069c memsz 0x00000oo000o0069c flags r-x
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>Read/write data segment
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>LOAD off    0x0000000000000df8 vaddr 0x0000000000600df8 paddr 0x0000000000600df8 align 2**21
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>     filesz 0x0000000000000228 memsz 0x0000000000000230 flags rw-
+</code></pre></div>
+<blockquote>
+<p>off：目标文件中的偏移；vaddr/paddr：内存地址；align：对齐要求；filesz：目标文件中的段大小；memsz：内存中的段大小；flags：运行时访问权限。</p>
+</blockquote>
+<p>从程序头部表，我们会看到根据可执行目标文件的内容初始化两个内存段。</p>
+<ul>
+<li>
+<p>第 1 行和第 2 行告诉我们第一个段（代码段）有读/执行访问权限，开始于内存地址 0x400000 处，总共的内存大小是 0x69c
+  字节，并且被初始化为可执行目标文件的头 0x69c 个字节，其中包括 ELF 头、程序头部表以及 .initx.text 和 .rodata 节。</p>
+</li>
+<li>
+<p>第 3 行和第 4 行告诉我们第二个段（数据段）有读/写访问权限，开始于内存地址 0x600df8 处，总的内存大小为 0x230 字节，并用从目标文件中偏移
+  0xdf8 处开始的 .data 节中的 0x228 个字节初始化。该段中剩下的 8 个字节对应于运行时将被初始化为 0 的 .bss 数据。</p>
+</li>
+</ul>
+<p>对于任何段 s，链接器必须选择一个起始地址 vaddr，使得 <span class="arithmatex">\(vaddr\ mod\ align = off\ mod\ align\)</span></p>
+<ul>
+<li>off 是目标文件中段的第一个节的偏移量</li>
+<li>align 是程序头部中指定的对齐 <span class="arithmatex">\(2^{21} = 0x200000\)</span>。</li>
+</ul>
+<p>上例的数据段中：<span class="arithmatex">\(vaddr\ mod\ align = 0x600df8\ mod\ 0x200000 = 0xdf8\)</span></p>
+<p>以及：<span class="arithmatex">\(off\ mod\ align = 0xdf8\ mod\ 0x200000 = 0xdf8\)</span></p>
+<p>这个对齐要求是一种优化，使得当程序执行时，目标文件中的段能够很有效率地传送到内存中。原因有点儿微妙，在于虚拟内存的组织方式，它被组织成一些很大的、连续的、大小为
+2 的幂的字节片。</p>
+<h3 id="_3">处理目标文件的工具<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>在 Linux 系统中有大量可用的工具可以帮助你理解和处理目标文件。特别地，GNU binutils 包尤其有帮助，而且可以运行在每个 Linux
+平台上。</p>
+<ul>
+<li>AR：创建静态库，插入、删除、列出和提取成员。</li>
+<li>STRINGS：列出一个目标文件中所有可打印的字符串。</li>
+<li>STRIP：从目标文件中删除符号表信息。</li>
+<li>NM：列出一个目标文件的符号表中定义的符号。</li>
+<li>SIZE：列出目标文件中节的名字和大小。</li>
+<li>READELF：显示一个目标文件的完整结构，包括 ELF 头中编码的所有信息。包含 SIZE 和 NM 的功能。</li>
+<li>OBJDUMP：所有二进制工具之母。能够显示一个目标文件中所有的信息。它最大的作用是反汇编 .text 节中的二进制指令。</li>
+</ul>
+<p>Linux 系统为操作共享库还提供了 LDD 程序：</p>
+<ul>
+<li>LDD：列出一个可执行文件在运行时所需要的共享库。</li>
+</ul>
+<h2 id="_4">编译与链接<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h3 id="c-example">C Example<a class="headerlink" href="#c-example" title="Permanent link">&para;</a></h3>
+<p>以 C 语言程序 <code>hello.c</code> 为例（参考 CSAPP）：</p>
+<p><img alt="compile-link" src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/compile-link.png" /></p>
+<ul>
+<li>
+<p><strong>预处理阶段。</strong> 预处理器（cpp）根据以字符 ## 开头的命令，修改原始的 C 程序。比如 hello.c 中第 1 行的<code>#include &lt;stdio.h&gt;</code>
+  命令告诉预处理器读取系统头文件 stdio.h 的内容，并把它直接插入程序文本中。结果就得到了另一个 C 程序，通常是以 .i 作为文件扩展名。</p>
+</li>
+<li>
+<p><strong>编译阶段。</strong> 编译器（ccl）将文本文件 hello.i 翻译成文本文件 hello.s，它包含一个 <strong>汇编语言程序</strong>。该程序包含函数 main
+  的定义，如下所示 ∶</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>main:
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    subq $8, %rsp
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    movl $.LC0, %edi
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    call puts
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    movl $0, %eax
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    addq $8, %rsp
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    ret
+</code></pre></div>
+<p>定义中 2 ～ 7 行的每条语句都以一种文本格式描述了一条低级机器语言指令。汇编语言是非常有用的，因为它为不同高级语言的不同编译器提供了通用的输出语言。例如，C
+  编译器和 Fortran 编译器产生的输出文件用的都是一样的汇编语言。</p>
+<ul>
+<li><strong>汇编阶段。</strong> 接下来，汇编器（as）将 hello.s 翻译成机器语言指令，把这些指令打包成一种叫做 <strong>可重定位目标程序</strong>（relocatable
+  object program）的格式，并将结果保存在目标文件 hello.o 中。hello.o 文件是一个二进制文件，它包含的 17 个字节是函数 main
+  的指令编码。如果我们在文本编辑器中打开 hello.o 文件，将看到一堆乱码。</li>
+</ul>
+<p>注意 <code>.o</code> 又被称为目标代码文件，是机器代码的一种形式，包含所有指令的二进制表示，但还没有填入全局值的地址。（CSAPP P113）</p>
+<ul>
+<li><strong>链接阶段。</strong> 请注意，hello 程序调用了 printf 函数，它是每个 C 编译器都提供的标准 C 库中的一个函数。printf 函数存在于一个名为
+  printf.o 的单独的预编译好了的目标文件中，而这个文件必须以某种方式合并到我们的 hello.o 程序中。链接器（ld）就负责处理这种合并。结果就得到
+  hello 文件，它是一个 <strong>可执行目标文件</strong>（或者简称为 <strong>可执行文件</strong>），可以被加载到内存中，由系统执行。</li>
+</ul>
+<p>此处仅介绍 Windows 和 Linux 下的二进制文件。</p>
+<p><strong>Windows：PE（Portable Executable）</strong></p>
+<ul>
+<li>可执行程序文件：<code>.exe</code></li>
+<li>动态链接库文件：<code>.dll</code></li>
+<li>静态链接库文件：<code>.lib</code></li>
+</ul>
+<p><strong>LInux：ELF（Executable and Linkable Format）</strong></p>
+<ul>
+<li>可执行程序文件：<code>.out</code></li>
+<li>动态链接库文件：<code>.so</code></li>
+<li>静态链接库文件：<code>.a</code></li>
+</ul>
+<h3 id="_5">静态链接与静态库<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p><strong>静态链接</strong>：类似 Linux LD 这样的静态连接器以 <strong>一组可重定位目标文件</strong> 和命令参数作为输入，生成一个完全链接的、可以加载和运行的可执行目标文件作为输出。注意 <strong>静态链接生成的文件包含了运行时所需的全部代码</strong>，当多个可执行目标文件调用相同的函数时，内存中就会存在这个函数的多个拷贝，浪费宝贵的内存资源。</p>
+<p>为了构造可执行文件，链接器必须完成两个主要任务：</p>
+<ul>
+<li>符号解析：目标文件定义和引用符号，每个符号对应于一个函数、全局变量或静态变量。</li>
+<li>重定位：编译器和汇编器生成从地址 0 开始的代码和数据节，链接器将多个文件合并时，需要重定位节的地址，并且修改符号引用，使其指向新地址</li>
+</ul>
+<p><strong>静态库</strong>：注意到谈及静态链接时，我们假设链接器读取一组可重定位目标文件，并将其链接起来。但实际上，编译系统均为提供一种机制，将所有相关的目标文件打包成为一个单独的文件，称为静态库，静态库文件以
+.a 结尾，用作链接器的输入。</p>
+<p>例如：</p>
+<ul>
+<li>libc 是 C 语言程序开发中最基础的库之一，也是其他高级库和框架的基础。libc.a 约 5MB</li>
+<li>libm 是数学库，包含了许多数学函数，例如三角函数、对数函数、指数函数等。libm.a 约 2MB</li>
+</ul>
+<p>本质上 libc.a 中就是一系列 .o 文件，但实际上当使用静态库时，链接器将只复制被程序引用的目标模板，这就减少了静态链接后可执行文件在磁盘和内存中的大小。</p>
+<p>此外，程序员只需要包含较少的静态库就行，而不需要包含大量的 .o 文件（实际上，C 编译器驱动总是传送 libc.a 给链接器，因此不需要手动引用静态库
+libc.a。</p>
+<p>在 Linux 中，静态库以一种称为 <strong>存档（archive）</strong> 的特殊文件格式存放在磁盘中，本质上是一组连接起来的可重定位目标文件的集合，有一个头部用来描述每个成员目标文件的大小和位置，存档文件名由后缀.a
+标识。</p>
+<p>例（CSAP 477）：假设有两个文件 addvec.c、multvec.c，分别提供加法和减法函数，将其创建为一个静态库：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>gcc<span class="w"> </span>-c<span class="w"> </span>advec.c<span class="w"> </span>multvec.c<span class="w">  </span><span class="c1">## -c 只激活预处理、编译和汇编，文件将被汇编成为可重定位目标文件 .o</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>ar<span class="w"> </span>rcs<span class="w"> </span>libvector.a<span class="w"> </span>addvec.o<span class="w"> </span>multvec.o<span class="w"> </span><span class="c1">## AR 工具生成静态库</span>
+</code></pre></div>
+<p>假设 vector.h 头文件中定义了 libvector.a 中的函数原型，如果想使用该库提供的函数：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;vector.h&quot;</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="p">{</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span><span class="n">addvec</span><span class="p">(...);</span><span class="w"> </span><span class="c1">// addvec.c 中的函数</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">  </span><span class="n">printf</span><span class="p">(...);</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="p">}</span>
+</code></pre></div>
+<p>最后一步，在链接时，提供该静态库：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="m">1</span>.<span class="w"> </span>gcc<span class="w"> </span>-c<span class="w"> </span>main2.c
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="m">2</span>.<span class="w"> </span>gcc<span class="w"> </span>-static<span class="w"> </span>-o<span class="w"> </span>prog2c<span class="w"> </span>main2.o<span class="w"> </span>./libvector.a<span class="w"> </span><span class="c1">## -static 选项将禁止使用动态库</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="m">2</span>.<span class="w"> </span>gcc<span class="w"> </span>-static<span class="w"> </span>-o<span class="w"> </span>prog2c<span class="w"> </span>main2.0<span class="w"> </span>-L.<span class="w"> </span>-lvector<span class="w">  </span><span class="c1">## 等价上句</span>
+</code></pre></div>
+<p>首先，通过第一句将 main2.c 经过预处理、编译和汇编处理后成为可重定位目标文件 main.o，接着：</p>
+<ul>
+<li>-static：关闭动态库，高速编译器驱动程序，链接器应该构建一个完全链接的可执行目标文件，它可以加载到内存中运行，且在加载时无须更进一步的链接</li>
+<li>-o prog2c：指定生成的可执行目标文件为 prog2c</li>
+<li>-lvector 参数是 libvector.a 的缩写， -L. 参数告诉链接器在 <strong>当前目录下查找</strong> libvector.a</li>
+</ul>
+<p><img src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/static-link.png" alt="static-link" style="zoom:33%;" /></p>
+<p>注意 libc.a 由 C 编译器驱动程序自动传送给链接器，此处会将 libc.a 中的 printf.o 模块复制到可执行文件中，以及许多 C
+运行时系统中的其他模块。</p>
+<p>链接器还会判定 mian2.o 引用了 addvec.o 定义的 addvec 符号，所以复制 addvec.o 到可执行文件，但程序没有引用任何 multvec.o
+定义的符号，因此 multvec.o 不会复制到可执行文件中。</p>
+<h3 id="_6">动态链接和共享库<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p><strong>动态链接</strong> 是相对静态链接而言的，动态链接所调用的函数代码并没有被拷贝到应用程序的可执行文件中去，而是仅仅 <strong>在其中加入了所调用函数的描述信息（往往是一些重定位信息）</strong>。仅当应用程序被装入内存开始运行时，才在应用程序与相应的动态链接库文件之间建立链接关系。</p>
+<p><strong>共享库</strong></p>
+<p>静态库主要存在两个问题：</p>
+<ul>
+<li>更新维护：由于静态库必然要实时更新，如果程序员想要使用一个库的最新版本，必须获取库的最新版，然后显式地将程序与更新的库重新链接</li>
+<li>重复占用内存：内存始终是稀有资源，例如几乎每个程序都会使用标准 I/O 函数（printf...），静态链接时，这些函数的代码会被复制到每个运行进程的文本段中</li>
+</ul>
+<p>共享库（shared library）是致力于解决静态库缺陷的一个现代创新产物。共享库是一个目标模块，在运行或加载时，可以加载到任意的内存地址，并和一个在内存中的程序链接起来，该过程称为动态链接（dynamic
+linking），由动态链接器（dynamic linker）执行。</p>
+<p>共享库也被称为共享目标（share target），通常用 .so 后缀。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>gcc<span class="w"> </span>-shared<span class="w"> </span>-fpic<span class="w"> </span>-o<span class="w"> </span>libvector.so<span class="w"> </span>addvec.c<span class="w"> </span>multvec.c
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>gcc<span class="w"> </span>-o<span class="w"> </span>prog21<span class="w"> </span>main2.c<span class="w"> </span>./libvvector.so
+</code></pre></div>
+<ul>
+<li>-shared 指示链接器创建一个共享的目标文件</li>
+<li>-fpic 指示编译器生成与位置无关的代码</li>
+</ul>
+<p><img src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/dynamic-link.png" alt="dynamic-link" style="zoom:33%;" /></p>
+<p>值得注意的两点，首先，在任何给定的文件系统中，对于一个库只有一个 .so 文件，所有引用该库的可执行目标文件共享该 .so
+文件中的代码和数据，而不是像静态库的内容那样被复制和嵌入到引用它们的可执行文件中。其次，在内存中，一个共享库的 .text
+节的一个副本可以被不同的正在运行的进程共享。</p>
+<h4 id="pltgot">PLT&amp;GOT<a class="headerlink" href="#pltgot" title="Permanent link">&para;</a></h4>
+<p>用于延迟绑定，参考：https://www.yuque.com/hxfqg9/bin/ug9gx5</p>
+<p><img alt="20160611124517413.jpg" src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/plt&amp;got.jpeg" /></p>
+<p>对应 PLT 地址指向的是 GOT 的地址，GOT 表指向的就是 printf 函数具体代码位置。</p>
+<p>什么是延迟绑定呢？只有动态库函数在被调用时，才会地址解析和重定位工作。</p>
+<p>一开始，printf@got 是 lookup_printf 函数的地址，这个函数用来寻找 printf() 的地址，然后写入 printf@got，lookup_printf
+执行完毕后就找到了，然后记录到 got 表中，此后就不再需要找了！</p>
+<h2 id="x86amd">程序的机器级表示：x86/amd 汇编<a class="headerlink" href="#x86amd" title="Permanent link">&para;</a></h2>
+<p>1978 年的 8086 处理器是 16 位处理器，1985 年因特尔发布 i386 将体系扩展到 32 位。因特尔处理器系列有很多名字，包括 IA32（Intel
+Architecture 32-bit），通常都将 32 位的称为 X86 。</p>
+<p>随后在向 64 位过度的时候，因特尔发布 IA64，由于与原来的 X86 架构不兼容，市场反应极差，此时 AMD 率先搞出了与原 X86 兼容的 64
+位处理器，称为 x86-64，也叫 AMD64。</p>
+<p>由于 x86-64 与原 X86 兼容，此处主要介绍 x86-64，也就是 AMD64。</p>
+<p>需要注意的是，32 位和 64 位程序有以下简单的区别</p>
+<ul>
+<li>
+<p>x86</p>
+<ul>
+<li><strong>函数参数</strong> 会被优先压入栈中，然后才将 <strong>函数返回地址</strong> 压入栈</li>
+</ul>
+</li>
+<li>
+<p>x64</p>
+<ul>
+<li>
+<p>System V AMD64 ABI (Linux、FreeBSD、macOS 等采用) 中前六个整型或指针参数依次保存在 <strong>RDI, RSI, RDX, RCX, R8 和 R9 寄存器</strong> 中，如果还有更多的参数的话才会保存在栈上。</p>
+</li>
+<li>
+<p>内存地址不能大于 0x00007FFFFFFFFFFF，<strong>6 个字节长度</strong>，否则会抛出异常。</p>
+</li>
+</ul>
+<blockquote>
+<p>参见：<strong>CSAPP P114</strong></p>
+<p>高 16 位地址必须为 0 ，因此实际上目前的 64 位系统是 48 位系统，但可以随时扩展到 64 位！</p>
+</blockquote>
+</li>
+</ul>
+<p>ATT 风格指令参考 CSAPP 第三章。</p>
+<p>机器级代码通常指二进制代码和汇编代码，后者十分接近二进制代码，可读性更高，值得注意的是，<strong>机器级代码只是简单的将内存看成一个很大的、按字节寻址的数组</strong>。x86-64 的虚拟地址是按 64 位的字来标识的，但在目前的实现中，高 16 位必须为 0，也就是说，实际地址范围为 <span class="arithmatex">\(2^{48}\)</span> （256TB），但可随时扩展。</p>
+<p>获取汇编代码的方式有两种：</p>
+<ul>
+<li>源代码-&gt;汇编代码：<code>gcc -Og -S hello.c</code></li>
+<li>二进制代码-&gt;汇编代码：<code>objdump -d hello</code></li>
+</ul>
+<p>通过 objdump 反汇编得到的汇编指令与 GCC 生成的汇编代码可能存在细微差别，例如 call 与 callq，但大部分情况下可以忽略。</p>
+<p>由于最早是从 16 位体系结构扩展为 32 位，因此 Intel 用术语 <code>字（word）</code> 表示 16 位字节，于是称 32 位为 <code>双字（doubles words）</code>
+，称 64 位为 <code>四字（quad words）</code>。</p>
+<p>通常，b、w、l、q 后缀分别用于表示字节、字、双字和四字，因此在大多数 GCC 生成的汇编代码指令都有字符后缀，例如：movb（传输字节）、movq（传输四字）。</p>
+<h3 id="_7">寄存器<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<h4 id="_8">整数寄存器<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
+<p>每个 x86-64 的中央处理单元（CPU）包含一组 16 个存储 64 位值的 <strong>通用目的寄存器</strong>，用于存储整数数据和指针。</p>
+<p>图示显示了这 16 个寄存器，名字都以 %r 开头，这是由于指令集历史演化造成的。</p>
+<ul>
+<li>
+<p>最初的 8086 中有 8 个 16 位的寄存器，即图中的 %ax 到 %bp，每个寄存器都有特殊的用途，名字就反映了这些不同的用途。</p>
+</li>
+<li>
+<p>扩展到 IA32 架构时，寄存器也扩展成 32 位寄存器，标号从 %eax 到 %ebp。</p>
+</li>
+<li>扩展到 x86-64 后，原来的 8 个寄存器扩展成 64 位，标号从 %rax 到 %rbp。此外还新增 8 个新的寄存器，其标号是按照新的命名规则制定的：从
+  %r8 到 %r15。</li>
+</ul>
+<p><img src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/software_analysis/register.png" alt="register.png" style="zoom:40%;" /></p>
+<p>正如图中嵌套的方框标明的，指令可以对这 16 个寄存器的低位字节中存放的不同大小的数据进行操作。字节级操作可以访问最低的字节，16
+位操作可以访问最低的 2 个字节，32 位操作可以访问最低的 4 个字节，而 64 位操作可以访问整个寄存器。</p>
+<ul>
+<li>
+<p>%rsp：栈顶指针，用来指明运行时栈的结束位置</p>
+</li>
+<li>
+<p>%rax：保存函数的返回值</p>
+</li>
+<li>
+<p>%rdi, %rsi, %rdx, %rcs, %r8, %r9：但函数 P 调用函数 Q 时，假设 Q 有 n&gt;6 个参数，前 6 个参数的值会按顺序依次存储到上述寄存器中</p>
+</li>
+<li>
+<p>被调用者保存寄存器：%rbx, %rbp, %r12, %r13, %r14, %r15</p>
+</li>
+</ul>
+<p><strong>%rbp：栈帧指针，用于标识当前栈帧的起始位置</strong></p>
+<p>当函数 P 调用函数 Q，Q 作为被调用者必须保证在 Q 返回到 P 时，上述寄存器的值不变。也就是说，Q
+  要么根本不去更改它，要么就是把原始的值压入栈中，改变寄存器的值，然后在返回前从栈中弹出旧值。</p>
+<p>此处压入栈的值会在栈帧中穿件标号为“被保存的寄存器“的一部分。</p>
+<ul>
+<li>所有其他的寄存器，除了栈指针 %rsp，均为 <strong>调用者保存寄存器</strong>，包含未提及的 %r10 和 %r11。顾名思义，当 P 调用 Q，Q
+  可以任意修改，因为在调用之前首先保存好这些寄存器的值是 P（调用者）的责任。</li>
+</ul>
+<p>除上述 16 个整数寄存器外，还有其它类型的寄存器，例如程序计数器寄存器 %rip 记录了下一条将执行的指令的地址。</p>
+<h4 id="_9">条件码寄存器<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
+<p>参考《指令、操作数、控制》章节的控制章节。</p>
+<h3 id="_10">指令、操作数、控制<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<p><strong>操作数</strong></p>
+<p>大多指令由一个或多个操作数，指示出执行一个操作要使用的源数据值，以及放置结果的目的位置，分为三种类型：</p>
+<ul>
+<li>立即数：书写方式是 <span class="arithmatex">\(\$\)</span> 后面跟一个整数，例如 <span class="arithmatex">\(\$0x1F\)</span></li>
+<li>寄存器：通过符号 <span class="arithmatex">\(r_a\)</span>表示任意寄存器 <span class="arithmatex">\(a\)</span>，用引用 <span class="arithmatex">\(R[r_a]\)</span> 表示寄存器的值。此处我们将寄存器集合看成数组 <span class="arithmatex">\(R\)</span>，用寄存器标识符作为索引。</li>
+<li>内存引用：根据计算出的地址访问某个内存位置，因为将内存看成一个很大的字节数组，通过符号 <span class="arithmatex">\(M_b[Addr]\)</span> 表示对存储在内存中从地址
+  <span class="arithmatex">\(Addr\)</span> 开始的 b 个字节值的引用，为了方便，通常省略下标 <span class="arithmatex">\(b\)</span></li>
+</ul>
+<p>此外，由于存在不同的 <strong><u>寻址模式</u></strong>：立即数寻址、寄存器寻址、绝对寻址等，因此通常需要组合上述三种寻址方式，具体参见 CSAPP
+P121。</p>
+<p><strong>指令</strong>（AT&amp;T 风格）</p>
+<ul>
+<li>
+<p>数据传送指令：MOV S, D</p>
+</li>
+<li>
+<p>压入和弹出栈数据：pushq S、pop D</p>
+</li>
+<li>
+<p>算术和逻辑操作：加减乘除、移位、逻辑、加载有效地址（leaq S, D）</p>
+</li>
+</ul>
+<p>leaq 指令实际上是 movq 指令的变形，形式上看从内存读数据到寄存器，但实际上不是引用内存，而是 <strong>将有效地址写入到目的操作数</strong>
+  ，因此 <strong>leaq 指令的作用是加载有效地址</strong>。</p>
+<ul>
+<li>控制：上述指令均为直线代码，即指令一条一条按序指向，实际上 C 代码中会有控制语句而导致跳转。</li>
+</ul>
+<p><strong>控制</strong></p>
+<p>通常来说，C 语言中的语句和机器代码中的指令都是按照它们在程序中出现的次序，顺序执行。但某些结构，比如条件语句、循环语句和分支语句，要求有条件的执行，根据数据测试的结果来决定操作执行的顺序。</p>
+<p>为什么实现上述功能，CPU 维护着<u>一组单个位</u>的 <strong>条件码（condition code）寄存器</strong>
+，它们描述了最近的算术或逻辑操作的属性。可以检测这些寄存器来执行条件分支指令，常用的条件码有：</p>
+<ul>
+<li>CF：进位标志。最近的操作使最高位产生了进位。可用来检测无符号操作的溢出</li>
+<li>ZF：零标志。最近的操作得出的结果为 0</li>
+<li>SF：符号标志。最近的操作得到的结果为负数</li>
+<li>OF：溢出标志。最近的操作导致一个补码溢出——正溢出/负溢出</li>
+</ul>
+<p><strong>那我们如何访问条件码呢？</strong></p>
+<p>当调用某些指令时，指令会自动根据操作码的情况做出相应的操作，例如 SET、JGE 指令等。</p>
+<h3 id="_11">☆ 过程与运行时栈（栈帧）<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<p><strong>过程</strong></p>
+<p>过程是软件中一种重要的抽象，在不同的编程语言中，表现形式不同，诸如：function、method、subruntime、handler 等，但有相同的共有特性。</p>
+<p>本文中以函数代替过程讲解！</p>
+<p>假设 <strong><u>过程 P 调用过程 Q，Q 执行后返回到 P</u></strong>。上述动作包含如下机制：</p>
+<ul>
+<li>传递控制：在进入过程 Q 的时候，程序计数器 PC 必须被设置为 Q 的代码的起始地址，然后在 Q 执行完返回 P 的时候，将 PC 设置为 P
+  中调用 Q 后面那条指令的地址。</li>
+<li>传递数据：P 必须能够向 Q 提供一个或多个参数，Q 必须能够向 P 返回一个值</li>
+<li>分配和释放内存：在开始时，Q 可能需要为局部变量 <strong>在栈上分配空间</strong>，而在 Q 执行完毕返回前，又必须释放这些存储空间。</li>
+</ul>
+<p><strong>运行时栈（C 语言）</strong></p>
+<p>大多数语言（以 C 为例）的关键特性为使用栈数据结构提供的后进先出的内存管理原则。</p>
+<p><img src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/common-stack-frame.png" alt="common-stack-frame" style="zoom:33%;" /></p>
+<p>函数调用经常是嵌套的，在同一时刻，堆栈中会有多个函数的信息。每个未完成运行的函数占用一个独立的连续区域，称作栈帧(Stack
+Frame)。栈帧是堆栈的逻辑片段，当调用函数时逻辑栈帧被压入堆栈, 当函数返回时逻辑栈帧被从堆栈中弹出。</p>
+<p>栈帧存放着函数参数，局部变量及恢复前一栈帧所需要的数据等。在 x86-64 中，函数所需的存储空间超出寄存器能够存放的大小时，才会在栈上分配空间。</p>
+<p>接着，我将根据栈帧和整数寄存器两个图，介绍过程的三个特性。</p>
+<h4 id="1"><strong>① 如何实现传递控制？</strong><a class="headerlink" href="#1" title="Permanent link">&para;</a></h4>
+<p>将控制从函数 P 转移到函数 Q 只需简单地把程序计数器 PC 设置为 Q 的代码的起始位置。</p>
+<p>为了成功从 Q 返回到 P，可以看到，P 的栈帧的栈底是返回地址，该地址指明了当 Q 返回时，将要从 P 程序的哪个位置继续执行（通常是调用
+Q 的指令的下一句）。</p>
+<p>此时，当 Q 执行完毕，<strong><u>Q 的栈帧将被全部弹出，再次调用 popq 指令</u></strong>，即可获取返回地址。</p>
+<p><strong>那么，上述功能是如何通过指令实现的呢？</strong></p>
+<p><img src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/software_analysis/assemble-example.png" alt="assemble-example" style="zoom: 33%;" /></p>
+<p>在 x86-64 机器中，当 P 调用 Q 时，其指令为：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>callq 400540 &lt;multstore&gt; ## 此处 P 为 main 函数，Q 为 multstore 函数
+</code></pre></div>
+<p>该指令首先修改程序计数器寄存器 %rip 的值为被调函数 Q 的地址（0x400540），随后将返回地址压入栈中，也就是将下一句的地址压入栈中，此时开始
+Q 的执行。</p>
+<p>本例中，将地址 0x400568 压入栈中，如图(b)所示：</p>
+<p><img src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/software_analysis/call-ret-example.png" alt="call-ret-example" style="zoom:33%;" /></p>
+<p>接着进入过程 Q 的执行，当 Q 执行完毕时，其最后一句指令为：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>retq
+</code></pre></div>
+<p>该指令从栈中弹出返回地址（0x400568），并将程序计数器寄存器 %rip 的值修改为该值，成功返回到函数 P。也就是说 ret 相当于：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>pop %rip
+</code></pre></div>
+<p>但是在此之前，还需要一点操作，那就是当过程 Q 执行完毕的时候，栈中如图所示：</p>
+<p><img src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/after-Q.png" alt="after-Q" style="zoom:33%;" /></p>
+<p>观察到当前栈顶 %rsp 仍然 指向函数 Q 的帧栈，想要拿出 return address，需要将 Q 的栈帧全部弹出。</p>
+<p><strong>那么，如何弹出被调函数 Q 的栈帧呢？（CSAPP 203）</strong></p>
+<p>通常来说，在函数 Q 的开头，会有一句：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>push %rbp       ## 保存函数R 的 %rbp 寄存器
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>mov %rsp，%rbp
+</code></pre></div>
+<p>由于此时处在函数 Q 的开头，且%rsp 指向栈顶，但对于函数 Q 的栈帧而言，函数 Q 还没开始，因此函数 Q 的栈帧也还没开始分配，因此
+%rsp 此时指向函数 Q 栈帧的起始位置，因此将其保存到 %rbp 中。</p>
+<p>注意，在此之前，通过 <code>push %rbp</code> 存储的是函数 P 的栈帧起始位置，由于已经将 %rbp 保存，而且此时在操作函数
+Q，因此通过 <code>mov %rsp, %rbp</code> 将函数 Q 的栈帧起始位置保存到 %rbp 中。</p>
+<p>当函数 Q 结束时，会有一句：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>leave
+</code></pre></div>
+<p>leave 指令相当于：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>mov %rbp, %rsp
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>pop %rbp
+</code></pre></div>
+<p>需要意识到，此时我们在操作函数 Q，而 %rbp 中存储了函数 Q 的栈帧起始位置，而当前函数 Q 执行完毕了，因此要将函数 Q
+的栈帧删除，故而执行 <code>mov %rbp, %rsp</code>。</p>
+<p>在执行 <code>mov %rbp, %rsp</code> 之前：</p>
+<p><img src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/rbp1.png" alt="rbp1" style="zoom:50%;" /></p>
+<p>执行后成功将函数 Q 的栈帧删除，随后执行 <code>pop %rbp</code>，将之前保存的 <strong><u>函数 P 的 %rbp 的值</u></strong> 写入到寄存器 %rbp 中。</p>
+<p><img src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/rbp2.png" alt="rbp2" style="zoom:50%;" /></p>
+<p>在上面栈帧的分布中讲过，调用函数 P 将：</p>
+<ul>
+<li>被调函数 Q 所需的参数</li>
+<li>返回值（call 指令的下一句语句的地址）</li>
+</ul>
+<p>保存到函数 P 的栈帧中，接着就开始被调函数 Q 的栈帧，该栈帧中首先保存 <code>被调者保存寄存器</code>，其中包含 <code>%rbp</code>，该寄存器中存储了栈帧起始地址。</p>
+<p>此时，<strong>再执行 <code>ret</code> 指令时，就可以成功 <code>pop %rip</code> ，从函数 Q 返回到函数 P</strong>。</p>
+<p>当然，若函数 R 调用了函数 P，同样的原理可以返回！</p>
+<p>总结一下，函数的起始指令通常如下：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>func:
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>    pushq %rbp
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>    movq %rsp, %rbp
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>    ...
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>    leave  ## 等价于  ①movq %rbp %rsp   ②pop %rbp
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>    ret
+</code></pre></div>
+<h4 id="2"><strong>② 如何实现数据（参数和返回值）传递？</strong><a class="headerlink" href="#2" title="Permanent link">&para;</a></h4>
+<p>x86-64 中，通过 <strong>寄存器 %rax 存储返回值</strong>。</p>
+<p>通过寄存器可传递最多 6 个整形（整数和指针）参数，按参数顺序从左到右依次被如下寄存器保存：%rdi, %rsi, %rdx, %rcs, %r8, %r9</p>
+<p>当函数有大于 6 个整形参数，超过 6 个的参数会被放到栈上，首先压入参数 n，其次压入参数 n-1，直至压入参数
+7，如上述栈帧图所示，当压入所有参数后，将会压入 Q 的返回地址。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">proc</span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="n">a1</span><span class="p">,</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="o">*</span><span class="n">a1p</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">a2</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">a2p</span><span class="p">,</span><span class="w"> </span><span class="kt">short</span><span class="w"> </span><span class="n">a3</span><span class="p">,</span><span class="w"> </span><span class="kt">short</span><span class="w"> </span><span class="o">*</span><span class="n">a3p</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">a4</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">a4p</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">  </span><span class="p">...</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="p">}</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="kt">void</span><span class="w"> </span><span class="nf">call_proc</span><span class="p">(){</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="w">  </span><span class="n">proc</span><span class="p">(...);</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="w">  </span><span class="k">return</span><span class="p">;</span>
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="p">}</span>
+</code></pre></div>
+<p>上述函数有 8 个参数，包括字节数不同的整数（8,4,2,1）和不同类型的指针（指针均为 8 字节）。</p>
+<p>当 call_proc 函数调用 proc 函数时，前 6 个参数将通过寄存器传递，例如参数 1（a1）将被存入寄存器 %rdi，参数 2（*a1p）将被存入寄存器
+%rsi，依次类推。</p>
+<p>随后将会先压入参数 n，此处为参数 8（*a4p），最后压入参数 7（a4），此时函数 call_proc 的栈帧结构如图所示：</p>
+<p><img src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/main-proc-stack-frame.png" alt="main-proc-stack-frame" style="zoom: 33%;" /></p>
+<h4 id="3"><strong>③ 如何实现分配和释放内存（栈）？</strong><a class="headerlink" href="#3" title="Permanent link">&para;</a></h4>
+<p>目前为止的大部分是案例都可以将数据存储在寄存器中，但有些时候，局部数据必须存放在内存中：</p>
+<ul>
+<li>寄存器不足够存放所有本地数据</li>
+<li>对一个局部变量使用地址运算符 &amp;，因此必须能够为它产生一个 地址</li>
+<li>某些局部变量是数组或结构，因此必须能够通过数组或结构引用被访问到（本质上也是 &amp; 导致的地址问题）</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kt">long</span><span class="w"> </span><span class="nf">call_proc</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">  </span><span class="kt">long</span><span class="w"> </span><span class="n">x1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">x2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">  </span><span class="kt">short</span><span class="w"> </span><span class="n">x3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="w">  </span><span class="kt">char</span><span class="w"> </span><span class="n">x4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="w">  </span><span class="n">proc</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">x1</span><span class="p">,</span><span class="w"> </span><span class="n">x2</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">x2</span><span class="p">,</span><span class="w"> </span><span class="n">x3</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">x3</span><span class="p">,</span><span class="w"> </span><span class="n">x4</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">x4</span><span class="p">);</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">x1</span><span class="o">+</span><span class="n">x2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">x3</span><span class="o">-</span><span class="n">x4</span><span class="p">);</span>
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="p">}</span>
+</code></pre></div>
+<p>此处将对前文的知识进行融汇贯通，call_proc 是一个必须在栈上分配存储空间的函数，因为它对局部变量使用了 &amp; 操作。</p>
+<p>此外，call_proc 还需要向具有 8 个参数的函数 proc 传递值，细心地读者会发现，此处的例子是对上例的完整补充。</p>
+<p>上述代码生成的汇编代码如图所示：</p>
+<p><img src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/call_proc_assembly.png" alt="call_proc_assembly" style="zoom:40%;" /></p>
+<p>首先，由于 4 个局部变量均需要存储到栈上，在汇编代码的第 2 行，将 %rsp 的值减少 32，其含义为为该函数分配了 32 字节的空间：</p>
+<ul>
+<li>
+<p>局部变量（local variables）：在第 3 行，其含义是将 $1 写入 %rsp + 24 的位置，后续语句依次类推。</p>
+</li>
+<li>
+<p>参数构造区（argument build area）：在第 8 和 9 行，将参数 8 和 7 压入栈中，其余 6 个参数写入栈中。</p>
+</li>
+</ul>
+<blockquote>
+<p>注意：由于此处参数均为整数、指针，因此可以写入整型寄存器</p>
+</blockquote>
+<p>此时，已经完成了内存的分配，下图为函数 call_proc 此时的栈帧（该图为上一幅栈帧图的补充版）：</p>
+<p><img src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/caller-callee-stack-frame.png" alt="caller-callee-stack-frame" style="zoom: 25%;" /></p>
+<p>接着在 16 行执行 proc 函数的调用：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>call proc
+</code></pre></div>
+<p>该指令调用该函数时，会将程序计数器 %rip 修改为 proc 程序的起始地址，并将 call proc 的下一句的地址压入栈帧中，作为返回地址（此处并未画出）。</p>
+<blockquote>
+<p>注意：此处图中的 Return address 是调用 call_proc 的函数的返回地址，而不是我们压入的返回地址！</p>
+</blockquote>
+<p>接着，proc 函数执行完后，其最后一个语句是 ret，此时返回到 call_proc 的第 17 行，接着第 17~23 行在执行 <code>(x1+x2)*(x3-x4);</code></p>
+<p>第 24 行将 %rsp 的值增加 32，其含义为删除分配的栈内存，此时 %rsp 指向图中的 Return address</p>
+<p>第 25 行的 ret 表示 call_proc 执行完毕，ret 会从栈中弹出 Return address，该地址为调用 call_proc 的函数的返回地址。</p>
+<p><strong>寄存器中的局部存储空间</strong></p>
+<p>此时，我们已经介绍了上述整型寄存器图中的绝大部分，包括：</p>
+<ul>
+<li>%rsp：栈顶指针寄存器</li>
+<li>%rax：保存函数的返回值</li>
+<li>%rdi, %rsi, %rdx, %rcs, %r8, %r9：但函数 P 调用函数 Q 时，假设 Q 有 n&gt;6 个参数，前 6 个参数的值会按顺序依次存储到上述寄存器中</li>
+</ul>
+<p>此外，还介绍了程序计数器寄存器：%eip</p>
+<p>还有 8 个整型计数器未被介绍：</p>
+<ul>
+<li>被调用者保存寄存器：%rbx, %rbp, %r12, %r13, %r14, %r15</li>
+</ul>
+<p><strong>%rbp：栈帧指针，用于标识当前栈帧的起始位置</strong>。</p>
+<p>当函数 P 调用函数 Q，Q 作为被调用者必须保证在 Q 返回到 P 时，上述寄存器的值不变。也就是说，Q
+  要么根本不去更改它，要么就是把原始的值压入栈中，改变寄存器的值，然后在返回前从栈中弹出旧值。</p>
+<p>此处压入栈的值会在栈帧中穿件标号为“被保存的寄存器“的一部分。</p>
+<ul>
+<li>所有其他的寄存器，除了栈指针 %rsp，均为 <strong>调用者保存寄存器</strong>，包含未提及的 %r10 和 %r11。顾名思义，当 P 调用 Q，Q
+  可以任意修改，因为在调用之前首先保存好这些寄存器的值是 P（调用者）的责任。</li>
+</ul>
+<p>那么，P 如何保存呢？</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kt">long</span><span class="w"> </span><span class="nf">P</span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="kt">long</span><span class="w"> </span><span class="n">y</span><span class="p">){</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Q</span><span class="p">(</span><span class="n">y</span><span class="p">);</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="w">  </span><span class="kt">long</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Q</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">u</span><span class="o">+</span><span class="n">v</span><span class="p">;</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="p">}</span>
+</code></pre></div>
+<p>上述代码中的值 u 和 v 需要被保存，因为将用于 u + v 的计算，P 可以通过将 u 和 v 的值先写入被调用者保存寄存器中，例如在调用
+Q(x) 之前，需要将 u 的值写入 %rbx 中，此时 Q 需要保证 %rbx 的值不变，成功完成保存。</p>
+<h3 id="_12"><strong>数据对齐</strong><a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<p>许多计算机系统对基础数据类型的合法地址做了限制，要求某种类型对象的地址必须是某个值 K 的倍数，可以提高性能。</p>
+<p>对齐原则为任何 K 字节的基本对象的地址必须是 K 的倍数：</p>
+<ul>
+<li>char：1 字节</li>
+<li>short：2 字节</li>
+<li>int，float：4 字节</li>
+<li>long，double，char*：8 字节</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="k">struct</span><span class="w"> </span><span class="nc">S1</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="w">  </span><span class="n">cahr</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="p">;</span>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="p">}</span>
+</code></pre></div>
+<p>其有两种可能的内存分配方式：</p>
+<p><img src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/%E6%95%B0%E6%8D%AE%E5%AF%B9%E9%BD%90.png" alt="数据对齐" style="zoom: 33%;" /></p>
+<p>前者是最小分配，并未进行数据对齐。由于 j 为 int 类型，为 4 字节，此时他的地址也必须是 4 的倍数，此处地址为 5 显然不满足。</p>
+<p>于是需要插入 3 个空白字节的间隙（蓝色），此时就满足了要求！</p>
+<p>有时候虽然每个元素都满足对齐要求，仍然需要在结构体的末尾添加空白元素：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="k">struct</span><span class="w"> </span><span class="nc">S2</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="p">;</span>
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="w">  </span><span class="kt">char</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="p">}</span>
+</code></pre></div>
+<p><img src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/%E6%95%B0%E6%8D%AE%E5%AF%B9%E9%BD%902.png" alt="数据对齐2" style="zoom:33%;" /></p>
+<h3 id="_13">内存越界引用和缓冲区溢出<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<p>C 对于数组引用不进行任何边界检查，而且局部变量和状态信息（例如保存的寄存器值和返回地址）都存放在栈中。当两种情况结合到一起时，会导致严重的程序错误，对越界的数组元素的写操作会破坏存储在栈中的状态信息。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">echo</span><span class="p">()</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="p">{</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="w">  </span><span class="kt">char</span><span class="w"> </span><span class="n">buf</span><span class="p">[</span><span class="mi">8</span><span class="p">];</span><span class="w"> </span><span class="c1">// too small!</span>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="w">  </span><span class="n">gets</span><span class="p">(</span><span class="n">buf</span><span class="p">);</span>
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="w">  </span><span class="n">puts</span><span class="p">(</span><span class="n">buf</span><span class="p">);</span>
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="p">}</span>
+</code></pre></div>
+<p>使用 gets 函数从标准输入读入一行，通过 puts 输出。注意读入的数据可能大于 buf 的长度，因为 gets 无法确定是否为保存整个字符串分配了足够的空间。</p>
+<p>由于我们只给 buf 分配了 8 字节长度，因此仍任何超过 7 字节的字符串都会导致写越界。</p>
+<blockquote>
+<p>C 语言的字符串末尾是 '\0'，占用 1 个字节。</p>
+</blockquote>
+<p>汇编代码见 CSAPP 195，其对应的栈帧如图所示：</p>
+<p><img src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/stack-frame-for-echo.png" alt="stack-frame-for-echo" style="zoom:50%;" /></p>
+<p>字符串长度为 0 ~ 23 字节时后果并不严重，但超过以后，返回指针的值将会被破坏，此时 ret 指令会导致程序跳转到一个意想不到的位置。</p>
+<p>缓冲区溢出更加致命的使用就是让程序执行恶意代码。下面将介绍几种对抗缓冲区溢出攻击的方法：</p>
+<ul>
+<li>地址空间布局随机化（ASLR）</li>
+<li>栈破坏检测（canary）</li>
+<li>限制可执行代码区域（NX）</li>
+</ul>
+<p>此外 PIE 技术很容易与 ASLR 混淆，也会同时介绍！</p>
+<h4 id="1aslr-pie">①ASLR 与 PIE<a class="headerlink" href="#1aslr-pie" title="Permanent link">&para;</a></h4>
+<p><strong>ASLR</strong></p>
+<p>为了在系统中插入攻击代码，攻击者既要插入代码，也要插入指向这段代码的指针，这个指针也是攻击字符串的一部分，产生这个指针
+需要知道字符串放置的栈地址。</p>
+<p>而栈随机化的思想，可以使栈的位置在程序每次运行时都有变化，其实现的方式是在程序开始时，在栈上分配一段空间，但并不使用，该空间会导致程序每次执行时后续的栈位置都发生变化。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(){</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="w">  </span><span class="kt">long</span><span class="w"> </span><span class="n">local</span><span class="p">;</span>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="w">  </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;local at %p</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">local</span><span class="p">);</span>
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="p">}</span>
+</code></pre></div>
+<p>在 32 位 Linux 上运行该程序 n 次，其地址变化范围为 0xff7fc59c ~ 0xffffd09c，约 <span class="arithmatex">\(2^{23}\)</span>，在 64 位上范围大小约 <span class="arithmatex">\(2^{64}\)</span>。</p>
+<p>栈随机化属于地址空间布局随机化（ASLR）中的一种，采用 ASLR，每次运行时程序的不同部分，包括程序代码、库代码、栈、全局变量和堆数据，都会被加载到内存的不同区域。</p>
+<p>简单来说，当程序被加载到内存中时，或者说，每个程序的虚拟内存分部是固定的，从低到高地址依次是：代码、堆和栈，而 ASLR
+正是对这三者的地址进行随机。</p>
+<p>通常 ASLR 有 0/&frac12; 三种级别，其中 0 表示 ASLR 未开启，1 表示随机化 stack、libraries，2 还会随机化 heap。</p>
+<p>配置 ASLR 级别：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>/proc/sys/kernel/randomize_va_space
+</code></pre></div>
+<p>修改该文件的值（0/&frac12;）即可对 ASLR 级别进行配置，默认为 2.</p>
+<p><strong>常用破解方法</strong></p>
+<p>攻击者可以在实际的攻击代码前插入很长一段的 nop 指令，该指令的作用是对程序计数器加 1，使其指向下一条指令，没有任何其他效果，只要攻击者能猜中这段序列中的某个
+nop 指令的地址，那么程序就会经过这个 nop 指令序列，到达攻击代码。</p>
+<p>这个序列的常用术语是 “空操作雪橇（nop sled）”，意思是程序会 “滑过” 这个序列。</p>
+<p>若我们建立 <span class="arithmatex">\(2^8\)</span> 字节的 nop sled，那么枚举 <span class="arithmatex">\(2^{23-8} = 2^{15}=32768\)</span> 个起始地址就能破解 32 位 Linux 的随机化，但想枚举破解
+64 位系统还是难度很大。</p>
+<p><strong>PIE</strong></p>
+<p>ASRL 是系统级别的技术，作用于程序（ELF）装入内存运行时；而 PIE 是编译器（gcc）提供的功能，作用于程序（ELF）编译生成时。</p>
+<p>由于 ASLR 是一种操作系统层面的技术，而二进制程序本身是不支持随机化加载的，便出现了一些绕过方式，例如 ret2plt，GOT 劫持，地址爆破等。</p>
+<p>于是，人们于 2003 年引入了位置无关可执行文件（Position - Independent
+Executable，PIE），其在应用层的编译器上实现，通过将程序编译为位置无关代码（Position - Independent Code，PIC），使程序可以被加载到任意位置，
+<strong>就像是一个特殊的共享库</strong>。</p>
+<p>使用命令 gcc -v 查看 gcc 默认的开关情况。如果含有 <code>--enable-default-pie</code> 参数则代表 PIE 默认已开启，此时编译出来的 ELF
+用 <code>file</code> 命令查看会显示其为 so，其随机化了 ELF 装载内存的基址（代码段、plt、got、data 等共同的基址）。</p>
+<p>若想关闭 PIE 则需要在编译指令中添加参数 <code>-no-pie</code>。</p>
+<p>在 PIE 和 ASLR 同时开启的情况下，攻击者将对程序的内存布局一无所知，上述绕过方式均失效，大大增加了利用难度。</p>
+<p>当然，凡事有利也有弊，在增加安全性的同时，PIE 也会一定程度上影响性能，因此绝大多数操作系统上 PIE 仅用于对一些安全性要求较高的程序。</p>
+<p>注意，PIE 必须 在 ASLR 至少为 1 的情况下才会生效，若为 0 级，不会生效。</p>
+<p>为什么呢，因为 PIE 是能力赋予，ASLR 是真正使用能力。</p>
+<p>而且在开启 PIE 的情况下，即便 ASLR 为 1，对 heap 的随机化也会生效，因为改变了基址。</p>
+<blockquote>
+<p>具体实验推荐查看：<a href="https://www.cnblogs.com/rec0rd/p/7646857.html">关于 Linux 下 ASLR 与 PIE 的一些理解</a></p>
+</blockquote>
+<p>32 位下，同时开启 ASLR 与 PIE 如下图所示。可以看到 PIE 的作用是使代码和数据的字节随机，同时也会自然影响到堆地址（ASLR = 2）</p>
+<p><img alt="aslr-pie-32" src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/aslr-pie-32.png" /></p>
+<h4 id="2canary">②canary<a class="headerlink" href="#2canary" title="Permanent link">&para;</a></h4>
+<p>计算机的第二道防线是能够检测到何时栈已经被破坏。上文提到，破坏通常发生在超越局部缓冲区的边界时。GCC 在最近的版本中加入了 <strong>栈保护者（stack protector）</strong> 机制，用于检测对缓冲区越界的读写。</p>
+<p>栈破坏检测的思想是在栈帧中任何局部缓冲区与栈状态之间存储一个特殊的 <strong>金丝雀值（canary）</strong> 也称为 <strong>哨兵值（guard value）</strong>。</p>
+<p>canary 是在程序每次运行时随机产生的，因此攻击者没有简单的方法获取其具体值，其被存放在一个特殊的 <strong>只读段</strong> 中，如此，攻击者也无法覆写
+canary 值。</p>
+<p>在恢复寄存器状态和从函数返回之前，程序检查 canary 是否被该函数的某个操作或者该函数调用的某个函数的某个操作改变了，若 <strong>发现canary 被篡改，则程序将异常终止</strong>。</p>
+<p>通过命令行选项 <code>-fno-stack-protector</code> 可以阻止 GCC 产生 cannary 保护代码，否则将默认生成。</p>
+<blockquote>
+<p>术语“金丝雀”源于历史上用这种鸟在煤矿中察觉有毒的气体</p>
+</blockquote>
+<p><img src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/stack-frame-for-echo-canary.png" alt="stack-frame-for-echo-canary" style="zoom:50%;" /></p>
+<p>如图所示，若 buf 溢出，则栈中保存的 Canary 处的值和真正的在特殊只读段中的 Canary 的真值将不相同，当函数执行完毕返回之前，检测栈上的
+Canary 发现被篡改，则认为例如 %ebp 等保存的寄存器信息、Return address 也被篡改，程序将异常终止！</p>
+<h4 id="3nxdep">③NX（DEP）<a class="headerlink" href="#3nxdep" title="Permanent link">&para;</a></h4>
+<p>第三道防线是消除攻击者向系统中插入可执行代码的能力。如何消除呢？</p>
+<p>一种方法是限制那些内存区域能够存放可执行代码。在典型的系统中，只有保存编译器产生的代码的内存区域才需要是可执行的，其他区域均可以被限制为只允许读写，而不允许执行。</p>
+<p>根据虚拟内存的知识，虚拟内存空间在逻辑上被分成了页，典型的每页 2048 或 4096
+字节，硬件支持多种形式的内存保护，能够指明用户程序和系统内核所允许的访问模式，通常分为三种访问模式：</p>
+<ul>
+<li>读（从内存读数据）</li>
+<li>写（存储数据到内存）</li>
+<li>执行（将内存的内容看做是机器级代码）</li>
+</ul>
+<p>以前，X86 体系将读和执行访问控制合并为同一个 1
+位的标志，即可读的页必定可执行，而栈必须是可读写的，因此栈上的字节也必须是可执行的。虽然有很多其他机制可以限制某些页可读但不可写，但都会带来严重的性能损失。</p>
+<p>然后最近 AMD 为 64 位处理器的内存保护引入了 NX（No-Execute）位，将读和执行访问模式区分开来，而 Inter 也随后跟进。</p>
+<p>至此，栈可以被标记为可读和可写，但不可执行，由于检查页是否可执行由硬件完成，没有性能损失。</p>
+<ul>
+<li>可写、不可执行：栈、堆、数据</li>
+<li>不可写、可执行：只读数据、代码</li>
+</ul>
+<p>GCC 默认启用 NX 选项，通过添加 <code>-z execstack</code> 关闭 NX。</p>
+<blockquote>
+<p>在 Linux 下称为 NX，在 Windows 下称为 DEP。</p>
+<p>目前来说，一旦开启 NX，则可写与可执行不可兼得，由此起到保护作用！</p>
+</blockquote>
+<h2 id="_14">处理器体系结构<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
+<p>根据上一章《程序的机器级表示》，我们知道处理器必须执行一系列指令，每条指令执行某个简单操作，例如两个数相加（指令 addq）。</p>
+<p>所谓 <strong>指令是被编码为由一个或多个字节序列组成的二进制格式</strong>，例如：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>0x488b542408 → move 0x8(%rsp), %rdx
+</code></pre></div>
+<p>二进制序列 <code>0x488b542408</code> 通过反汇编即可获得其对应的指令 <code>move 0x8(%rsp), %rdx</code></p>
+<p>一个处理器支持的指令和指令的字节级编码称为它的 <strong>指令集体系结构(ISA)</strong>，不同的处理器家族（例如 Intel IA32、x86-64、AMD）都有不同的
+ISA，这意味 <strong>着一个程序编译成可以在某一种机器上运行，就不能在另一种机器上运行</strong>。</p>
+<p>本章主要介绍硬件系统如何执行 ISA 指令，一个重要的概念是：现代处理器实际的工作方式可能跟 ISA 隐含的计算模型大相径庭。</p>
+<p>ISA 模型看上去应该是 <strong>顺序指令执行</strong>，即先取出一条指令，等待它执行完毕，再执行下一条。</p>
+<p>然而，与同一时刻只执行一条指令相比，通过同时处理多条指令的不同部分，处理器可以获得更高的性能。为了保证处理器能得到同顺序执行相同的结果，需要一种特殊的机制来实现。</p>
+<p>RISC 和 CISC 指令集：</p>
+<ul>
+<li>CISC：复杂指令集计算机，例如 x86-64</li>
+<li>RISC：精简指令集计算机，例如 ARM</li>
+</ul>
+<p>假设向设计一个处理器，主要分为如下步骤：</p>
+<ul>
+<li>指令及其编码</li>
+<li>异常处理</li>
+<li>电路、硬件（todo）：大多数现代电路设计都是用信号线上的高电压和低电压来表示不同的位值。</li>
+</ul>
+<p><strong>① 指令及编码：Y86-64</strong></p>
+<p>将设计的 ISA 命名为 Y86-64，因为受到 x86 的启发！</p>
+<p>具体可查看 CSAPP P246。</p>
+<p>举个例子：ret 指令的 16 进制为 90。</p>
+<p>该 ISA 共设置 15 个寄存器，每个寄存器都有一个相对应的范围在 0 到 0xE 之间的 <strong>寄存器标识符（register ID）</strong>，该寄存器编号与
+x86-64 中的相同。</p>
+<p>这种寄存器称为程序寄存器，存在 CPU 中的一个寄存器文件，该寄存器文件就是一个以寄存器 ID 作为地址的随机访问存储器。</p>
+<p>举个例子：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>rmmovq %rsp, 0x123456789abcd(%rdx)
+</code></pre></div>
+<ul>
+<li>
+<p>rmmovq 的字节为 40</p>
+</li>
+<li>
+<p>%rsp 的地址为 4</p>
+</li>
+<li>
+<p>%rdx 的地址为 2</p>
+</li>
+<li>
+<p>0x123456789abcd 首先填充 0 使其变为 8 字节： 00 01 23 45 67 89 ab cd</p>
+</li>
+<li>
+<p>由于所有整数采用小端序编码，当指令按照反汇编格式书写时，字节会以相反的顺序出现</p>
+</li>
+</ul>
+<p>因此将字节返序，得到 cd ab 89 67 45 23 01 11</p>
+<p>于是得到指令的最终编码：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>0x4042cdab896745230111
+</code></pre></div>
+<p><strong>② 异常处理</strong></p>
+<p>参考《异常控制流：中断与系统调用》</p>
+<p>③TODO</p>
+<p>随后书本介绍了顺序和流水线两种形式的实现，此处介绍一下指令执行的顺序：</p>
+<ul>
+<li>
+<p><strong>取值</strong>：PC 记录了下一个待执行指令的地址，基于该地址从内存中读取指令字节</p>
+</li>
+<li>
+<p><strong>译码</strong>：按照预定的指令格式，对取回的指令进行拆分和解释，识别区分出不同的指令类别以及各种获取操作数的方法。
+  该阶段还负责从寄存器中读出值。</p>
+</li>
+<li>
+<p><strong>执行</strong>：完成指令所规定的各种操作，具体实现指令的功能。为此，CPU 的不同部分被连接起来，以执行所需的操作。</p>
+</li>
+</ul>
+<p>例如，如果要求完成一个加法运算，算术逻辑单元 ALU 将被连接到一组输入和一组输出，输入端提供需要相加的数值，输出端将含有最后的运算结果。</p>
+<ul>
+<li>
+<p><strong>访存</strong>：将数据写入内存，或从内存中读取数据</p>
+</li>
+<li>
+<p><strong>写回</strong>：通常是将数据写入寄存器中</p>
+</li>
+<li>
+<p><strong>更新 PC</strong>：将 PC 设置为下一条指令的地址</p>
+</li>
+</ul>
+<h2 id="_15">存储器层次结构<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h2>
+<p>在上文的研究中，我们依赖于一个简单的计算机系统模型：CPU 执行指令，而存储器系统为 CPU 存放指令和数据，将其认为是一个线性的字节数组，而
+CPU 能够在一个常数时间内访问每个存储器位置。</p>
+<p>但实际上，现代存储器系统是一个具有不同容量、成本和访问时间的存储设备的层次结构：</p>
+<ul>
+<li>CPU 寄存器</li>
+<li>高速缓存存储器：靠近 CPU、容量小且快速。缓存存储在相对慢速的主存储器中数据和指令的一部分。</li>
+<li>主存储器（主存）：缓存存储在容量大且慢速的磁盘上的数据</li>
+<li>磁盘：持久存储，上述几种断电后数据消失。</li>
+</ul>
+<p>层次机构之所以可行，是因为局部性原理，通常会频繁的访问局部数据。</p>
+<p>几个名词：</p>
+<ul>
+<li>静态 RAM（SRAM）：快、贵、不可持久存储</li>
+<li>动态 RAM（DRAM）：没 SRAM 快，但相对便宜，不可持久存储</li>
+<li>可擦写可编程 ROM（EPROM），可持久存储</li>
+<li>闪存是一种非易失性存储器，基于 EEPROM（类似 EPROM），而固态硬盘（SSD）正是新型的基于闪存的磁盘驱动器</li>
+<li>磁盘：可持久存储，很慢，详见 CSAPP 407</li>
+</ul>
+<p>DRAM 有多种改良增强版本，现代的 <strong>主存</strong> 通常就是使用 DRAM，<strong>那如何访问主存呢？</strong></p>
+<p>数据流通过成为 <strong>总线（bus）</strong> 的共享电子电路在处理器和 DRAM 主存之间来来回回，详细读取参见 CSAPP 406</p>
+<p><img src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/bus-structure.png" alt="bus-structure" style="zoom:50%;" /></p>
+<h2 id="_16">异常控制流<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h2>
+<p>结合程序的机器级表示和处理器体系结构两章可知，寄存器 PC 中存放了待执行指令 <span class="arithmatex">\(I_k\)</span> 的地址，CPU 会根据 PC 中的地址从内存中获取指令。</p>
+<p>通常来说，从指令 <span class="arithmatex">\(I_k\)</span> 到 <span class="arithmatex">\(I_{k+1}\)</span> 的转变是平滑的，也就是<span class="arithmatex">\(I_k\)</span> 和 <span class="arithmatex">\(I_{k+1}\)</span>在内存中的位置是相邻的。</p>
+<p>但偶尔也会发生 <strong>控制流突变</strong>，例如跳转、调用和返回这样一些程序指令，这块内容在程序的机器级表示中进行了介绍。例如当发生函数调用时，call
+指令会修改 PC 至目标位置，并将返回地值压入栈中，被调函数执行完毕后，最后一句 ret 指令会将返回地址从栈中弹出。一般返回地址就是
+call 指令的下一句指令所在的地址。此外，还有 jmp 等跳转指令也会产生位置突变。</p>
+<p>上述机制使得程序能够对程序变量表示的内部程序状态中的变化做出反应</p>
+<p>但是，<strong>系统也必须能够对系统状态的变化做出反应</strong>，这些系统状态不是被内部程序变量捕获的，也不一定要和程序的执行相关。例如：</p>
+<ul>
+<li>一个硬件定时器定期产生信号，这个时间必须得到处理。</li>
+<li>包到达网络适配器后，必须存放在内存中。</li>
+<li>程序向磁盘请求数据，然后休眠，直到被通知说数据已就绪。</li>
+<li>当子进程终止时，创建它的父进程必须得到通知。</li>
+</ul>
+<p>现代系统通过使控制流发生突变来对这些情况做出反应，我们将此类突变称为 <strong>异常控制流</strong>。</p>
+<p>异常控制流发生在计算机系统的各个层次，例如：</p>
+<ul>
+<li>在硬件层：硬件检测到的事件会触发控制突然转移到异常处理程序</li>
+<li>在操作系统层：内核通过上下文切换将控制从一个用户进程转移到另一个用户进程</li>
+<li>在应用层：一个进程可以发送信号到另一个进程，而接受者会将控制突然转移到它的一个信号处理程序。</li>
+</ul>
+<p>总的来说，一个程序可以通过回避通常的栈规则，并执行到其他函数中任意位置的非本地跳转来对错误做出反应。</p>
+<p>本章将根据异常发生的三个层次介绍。</p>
+<h3 id="_17">硬件层：异常<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
+<p>异常（exception）是异常控制流的一种形式，它的一部分由硬件实现，一部分由操作系统实现。</p>
+<p>简单来说，异常就是控制流中的突变，用来 <strong>响应处理器状态中的某些变化</strong>。</p>
+<p><img src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/anatomy-of-an-exception.png" alt="anatomy-of-an-exception" style="zoom: 33%;" /></p>
+<p>在图中，当处理器状态中发生一个重要的变化时，处理器正在执行某个当前指令 <span class="arithmatex">\(I_{curr}\)</span>。在处理器中，状态被编码为不同的位和信号。状态变化称为
+<strong>事件</strong>（event）:</p>
+<ul>
+<li>事件可能和当前指令的执行直接相关。比如，发生虚拟内存缺页、算术溢出，或者一条指令试图除以零。</li>
+<li>事件也可能和当前指令的执行没有关系。比如，一个系统定时器产生信号或者一个 I/O 请求完成。</li>
+</ul>
+<p>在任何情况下，当处理器检测到有事件发生时，它就会通过一张叫做 <strong>异常表</strong>（exception
+table）的跳转表，进行一个间接过程调用（异常），到一个专门设计用来处理这类事件的操作系统子程序，称为 <strong>异常处理程序</strong>（exception
+handler）.</p>
+<p>当异常处理程序完成处理后，根据引起异常的事件的类型，会发生以下 3 种情况中的一种：</p>
+<ol>
+<li>处理程序将控制返回给当前指令 <span class="arithmatex">\(I_{curr}\)</span> ，即当事件发生时正在执行的指令。</li>
+<li>处理程序将控制返回给 <span class="arithmatex">\(I_{next}\)</span> ，如果没有发生异常将会执行的下一条指令。</li>
+<li>处理程序终止被中断的程序。</li>
+</ol>
+<p>前文提到异常由软件和硬件共同实现，此处详细介绍二者的分工。</p>
+<p>系统中可能的每种类型的异常都分配了一个唯一的非负整数的 <strong>异常号</strong>（exception number）:</p>
+<ul>
+<li>一些号码是由处理器的设计者分配：例如包括被零除、缺页、内存访问违例、断点以及算术运算溢出。</li>
+<li>其他号码是由操作系统内核（操作系统常驻内存的部分）的设计者分配：例如包括系统调用和来自外部 I/O 设备的信号。</li>
+</ul>
+<p>在系统启动时（当计算机重启或者加电时），操作系统分配和初始化一张称为 <strong>异常表</strong> 的跳转表，使得表目 k 包含异常 k
+的处理程序的地址，下图展示了异常表的格式：</p>
+<p><img src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/exception-table.png" alt="exception-table" style="zoom:33%;" /></p>
+<p>在运行时（当系统在执行某个程序时），处理器检测到发生了一个事件，并且确定了相应的异常号 k。随后，处理器触发异常，方法是执行间接过程调用，通过异常表的表目
+k，转到相应的处理程序。下图展示了处理器如何使用异常表来形成适当的异常处理程序的地址。异常号是到异常表中的索引，异常表的起始地址放在一个叫做 <strong>异常表基址寄存器</strong>（exception table base register）的特殊 CPU 寄存器里。</p>
+<p><img src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/exception-example.png" alt="exception-example" style="zoom:33%;" /></p>
+<p>异常就类似于过程调用（e.g.
+函数调用），但也有不同之处，例如如果控制从用户程序转移到内核，所有这些项目都被压到内核栈中，而不是压到用户栈中，此外由于异常处理程序运行在内核模式下，这意味着它们对所有的系统资源都有完全的访问权限。此外，压入栈的内容和返回地址也有所不同。</p>
+<p><strong>异常的类别</strong></p>
+<p>异常可以分为四类：<strong>中断</strong>（interrupt），<strong>陷阱</strong>（trap）、<strong>故障</strong>（fault）和 <strong>终止</strong>（abort）。下表对这些类别的属性做了小结。</p>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>原因</th>
+<th>异步/同步</th>
+<th>返回行为</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>中断</td>
+<td>来自 I/O 设备的信号</td>
+<td>异步</td>
+<td>总是返回到下一条指令</td>
+</tr>
+<tr>
+<td>陷阱（系统调用）</td>
+<td>有意的异常</td>
+<td>同步</td>
+<td>总是返回到下一条指令</td>
+</tr>
+<tr>
+<td>故障</td>
+<td>潜在可恢复的错误</td>
+<td>同步</td>
+<td>可能返回到当前指令</td>
+</tr>
+<tr>
+<td>终止</td>
+<td>不可恢复的错误</td>
+<td>同步</td>
+<td>不会返回</td>
+</tr>
+</tbody>
+</table>
+<p>对每类异常的详细介绍参考 <a href="https://hansimov.gitbook.io/csapp/part2/ch08-exceptional-control-flow/8.1-exceptions">CSAPP 504</a></p>
+<p>注意到中断是异步发生的，通常是例如网络适配器、定时器芯片等硬件通过像处理器芯片上的一个引脚发信号，并将异常号放到系统总线上来触发中断。</p>
+<p>处理中断的异常处理程序被称作 <strong>中断处理程序</strong>。</p>
+<p>接着介绍一下陷阱，<strong>陷阱是有意的异常</strong>，是执行一条指令的结果。就像中断处理程序一样，陷阱处理程序将控制返回到下一条指令。</p>
+<p>陷阱最重要的用途是在用户程序和内核之间提供一个像过程调用一样的接口，叫做系统调用。</p>
+<p>用户程序经常需要向内核请求服务，比如读一个文件（read）、创建一个新的进程（fork），加载一个新的程序（execve），或者终止当前进程（exit）。<strong>为了允许对这些内核服务的受控的访问，处理器提供了一条特殊的 “syscall n” 指令，当用户程序想要请求服务 n 时，可以执行这条指令。</strong> 执行 syscall 指令会导致一个到异常处理程序的陷阱，这个处理程序解析参数，并调用适当的内核程序。</p>
+<p>如图概述了一个系统调用的处理：</p>
+<p><img src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/trap-handling.png" alt="trap-handling" style="zoom:33%;" /></p>
+<p>从程序员的角度来看，系统调用和普通的函数调用是一样的。然而，它们的实现非常不同。普通的函数运行在用户模式中，用户模式限制了函数可以执行的指令的类型，而且它们只能访问与调用函数相同的栈。系统调用运行在内核模式中，内核模式允许系统调用执行特权指令，并访问定义在内核中的栈。</p>
+<p><strong>Linux/x86-64 系统中的异常</strong></p>
+<p>为了使描述更具体，让我们来看看为 x86-64 系统定义的一些异常。有高达 256 种不同的异常类型：</p>
+<ul>
+<li>0 ∼ 31 的号码对应的是由 Intel 架构师定义的异常，因此对任何 x86-64 系统都是一样的</li>
+<li>32 ∼ 255 的号码对应的是操作系统定义的中断和陷阱。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>异常号</th>
+<th>描述</th>
+<th>异常类别</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>除法错误</td>
+<td>故障</td>
+</tr>
+<tr>
+<td>13</td>
+<td>一般保护故障</td>
+<td>故障</td>
+</tr>
+<tr>
+<td>14</td>
+<td>缺页</td>
+<td>故障</td>
+</tr>
+<tr>
+<td>18</td>
+<td>机器检查</td>
+<td>终止</td>
+</tr>
+<tr>
+<td>32 ~ 255</td>
+<td>操作系统定义的异常</td>
+<td>中断或陷阱</td>
+</tr>
+</tbody>
+</table>
+<p><strong>① 故障和终止</strong></p>
+<ul>
+<li>
+<p><strong>除法错误。</strong> 当应用试图除以零时，或者当一个除法指令的结果对于目标操作数来说太大了的时候，就会发生除法错误（异常 0）。Unix
+  不会试图从除法错误中恢复，而是选择终止程序。Linuxshell 通常会把除法错误报告为“浮点异常（Floating exception）”。</p>
+</li>
+<li>
+<p><strong>一般保护故障。</strong> 许多原因都会导致不为人知的一般保护故障（异常 13），通常是因为一个程序引用了一个未定义的虚拟内存区域，或者因为程序试图写一个只读的文本段。Linux
+  不会尝试恢复这类故障。Linux shell 通常会把这种一般保护故障报告为“段故障（Segmentation fault）”。</p>
+</li>
+<li>
+<p><strong>缺页</strong>（异常 14）是会重新执行产生故障的指令的一个异常示例。处理程序将适当的磁盘上虚拟内存的一个页面映射到物理内存的一个页-
+  面，然后重新执行这条产生故障的指令。我们将在第 9 章中看到缺页是如何工作的细节。</p>
+</li>
+<li>
+<p><strong>机器检查。</strong> 机器检查（异常 18）是在导致故障的指令执行中检测到致命的硬件错误时发生的。机器检查处理程序从不返回控制给应用程序。</p>
+</li>
+</ul>
+<p><strong>② 系统调用</strong></p>
+<p>Linux 提供几百种系统调用，当应用程序想要请求内核服务时可以使用，包括读文件、写文件或是创建一个新进程。下表给出了一些常见的
+Linux 系统调用。每个系统调用都有一个唯一的整数号，对应于一个到内核中跳转表的偏移量。（注意：这个跳转表和异常表不一样。）</p>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>名字</th>
+<th>描述</th>
+<th>编号</th>
+<th>名字</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>read</td>
+<td>读文件</td>
+<td>33</td>
+<td>pause</td>
+<td>挂起进程直到信号到达</td>
+</tr>
+<tr>
+<td>1</td>
+<td>write</td>
+<td>写文件</td>
+<td>37</td>
+<td>alarm</td>
+<td>调度告警信号的传送</td>
+</tr>
+<tr>
+<td>2</td>
+<td>open</td>
+<td>打开文件</td>
+<td>39</td>
+<td>getpid</td>
+<td>获得进程 ID</td>
+</tr>
+<tr>
+<td>3</td>
+<td>close</td>
+<td>关闭文件</td>
+<td>57</td>
+<td>fork</td>
+<td>创建进程</td>
+</tr>
+<tr>
+<td>4</td>
+<td>stat</td>
+<td>获得文件信息</td>
+<td>59</td>
+<td>execve</td>
+<td>执行一个程序</td>
+</tr>
+<tr>
+<td>9</td>
+<td>mmap</td>
+<td>将内存页映射到文件</td>
+<td>60</td>
+<td>_exit</td>
+<td>终止进程</td>
+</tr>
+<tr>
+<td>12</td>
+<td>brk</td>
+<td>重置堆顶</td>
+<td>61</td>
+<td>wait4</td>
+<td>等待一个进程终止</td>
+</tr>
+<tr>
+<td>32</td>
+<td>dup2</td>
+<td>复制文件描述符</td>
+<td>62</td>
+<td>kill</td>
+<td>发送信号到一个进程</td>
+</tr>
+</tbody>
+</table>
+<p><strong>C 程序用 syscall 函数可以直接调用任何系统调用。然而，实际中几乎没必要这么做。对于大多数系统调用，标准 C 库提供了一组方便的包装函数。</strong> 这些包装函数将参数打包到一起，以适当的系统调用指令陷入内核，然后将系统调用的返回状态传递回调用程序。</p>
+<blockquote>
+<p>在本笔记中，我们将系统调用和与它们相关联的包装函数都称为 <strong>系统级函数</strong>，这两个术语可以互换地使用。</p>
+</blockquote>
+<p>在 X86-64 系统上，系统调用是通过一条称为 syscall 的陷阱指令来提供的，<strong>那么程序如何使用 syscall 指令来直接调用 Linux
+系统调用呢？</strong></p>
+<p>所有的 Linux 系统调用的参数都是通过通用寄存器而不是栈传递的，按照惯例：</p>
+<ul>
+<li>
+<p>寄存器 ％rax 包含系统调用号</p>
+</li>
+<li>
+<p>寄存器 %rdi、%rsi、%rdx、%r10、%r8 和 ％r9 包含最多 6 个参数。第一个参数在 ％rdi 中，第二个在 ％rsi 中，以此类推。</p>
+</li>
+<li>
+<p>从系统调用返回时，寄存器 %rcx 和 ％r11 都会被破坏，％rax 包含返回值。</p>
+</li>
+</ul>
+<p>-4095 到 -1 之间的负数返回值表明发生了错误，对应于负的 errno。</p>
+<p>例如，考虑大家熟悉的 hello 程序的下面这个版本，用系统级函数 write 来写，而不是用 printf：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="p">{</span>
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="w">    </span><span class="c1">// 第一个参数将输出发送到 stdout。第二个参数是要写的字节序列。第三个参数是要写的字节数</span>
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="w">    </span><span class="n">write</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;hello, world</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">13</span><span class="p">);</span>
+<a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a><span class="w">    </span><span class="n">_exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a><span class="p">}</span>
+</code></pre></div>
+<p>其汇编代码如下：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>1 .section .data
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>2 string:
+<a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>3   .ascii &quot;hello, world\n&quot;
+<a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a>4 string_end:
+<a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a>5   .equ len, string_end - string
+<a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a>6 .section .text
+<a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a>7 .globl main
+<a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a>8 main:
+<a id="__codelineno-27-9" name="__codelineno-27-9" href="#__codelineno-27-9"></a>    ## First, call write(1, &quot;hello, world\n&quot;, 13)
+<a id="__codelineno-27-10" name="__codelineno-27-10" href="#__codelineno-27-10"></a>9   movq $1, %rax                 ## write is system call 1
+<a id="__codelineno-27-11" name="__codelineno-27-11" href="#__codelineno-27-11"></a>10  movq $1, %rdi                 ## Arg1: stdout has descriptor 1
+<a id="__codelineno-27-12" name="__codelineno-27-12" href="#__codelineno-27-12"></a>11  movq $string, %rsi            ## Arg2: hello world string
+<a id="__codelineno-27-13" name="__codelineno-27-13" href="#__codelineno-27-13"></a>12  movq $len, %rdx               ## Arg3: string length
+<a id="__codelineno-27-14" name="__codelineno-27-14" href="#__codelineno-27-14"></a>13  syscall                       ## Make the system call
+<a id="__codelineno-27-15" name="__codelineno-27-15" href="#__codelineno-27-15"></a>
+<a id="__codelineno-27-16" name="__codelineno-27-16" href="#__codelineno-27-16"></a>    ## Next, call _exit(0)
+<a id="__codelineno-27-17" name="__codelineno-27-17" href="#__codelineno-27-17"></a>14  movq $60, %rax                ## _exit is system call 60
+<a id="__codelineno-27-18" name="__codelineno-27-18" href="#__codelineno-27-18"></a>15  movq $0, %rdi                 ## Arg1: exit status is 0
+<a id="__codelineno-27-19" name="__codelineno-27-19" href="#__codelineno-27-19"></a>16  syscall                       ## Make the system call
+</code></pre></div>
+<p>直接使用 syscall 指令来调用 write 和 exit 系统调用:</p>
+<ul>
+<li>第 9 ∼ 13 行调用 write 函数。首先，第 9 行将系统调用 write 的编号存放在 ％rax 中，第 10 ∼ 12 行设置参数列表。然后第 13 行使用
+  syscall 指令来调用系统调用。</li>
+<li>类似地，第 14 ∼ 16 行调用 _exit 系统调用。</li>
+</ul>
+<h3 id="_18">操作系统层：进程<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h3>
+<p>进程的经典定义就是一个执行中程序的实例。每次用户通过向 shell 输入一个可执行目标文件的名字，运行程序时，shell
+就会创建一个新的进程，然后在这个新进程的上下文中运行这个可执行目标文件。应用程序也能够创建新进程，并且在这个新进程的上下文中运行它们自己的代码或其他应用程序。</p>
+<p>本笔记不讨论操作系统如何实现进程的细节，而是将关注进程提供给应用程序的关键抽象：</p>
+<ul>
+<li>一个独立的 <strong>逻辑控制流</strong>，它提供一个假象，好像我们的程序独占地使用处理器。</li>
+<li>一个私有的地址空间，它提供一个假象，好像我们的程序独占地使用内存系统。让我们更深入地看看这些抽象。</li>
+</ul>
+<p>首先会介绍什么是逻辑控制流、并发流以及私有地址空间，接着介绍用户模式和内核模式，然后介绍上下文切换，最后在此基础之上结合
+Linux 系统对其提供的系统函数进行讲解。</p>
+<p><strong>一、逻辑控制流</strong></p>
+<p>如果用调试器单步执行程序，我们会看到一系列的程序计数器 PC
+的值，这些值唯一地对应于包含在程序的可执行目标文件中的指令（的地址），或是包含在运行时动态链接到程序的共享对象中的指令（的地址）。</p>
+<p>将 PC 值的序列叫做 <strong>逻辑控制流</strong>，或者简称 <strong>逻辑流</strong>。</p>
+<p><img src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/logical-control-%EF%AC%82ows.png" alt="logical-control-ﬂows" style="zoom:33%;" /></p>
+<p>如图为运行着三个进程的系统，处理器的一个物理控制流被分成了三个逻辑流，每个进程一个。</p>
+<p>进程 A 运行了一会，然后是进程 B 开始运行到完成。然后，进程 C 运行了一会儿，进程 A 接着运行直到完成。最后，进程 C 可以运行到结束。</p>
+<p>关键点在于进程是轮流使用处理器的，每个进程执行它的流的一部分，然后被 <strong>抢占</strong>（preempted）（暂时挂起），然后轮到其他进程。</p>
+<p>对于一个运行在这些进程之一的上下文中的程序，它看上去就像是在独占地使用处理器。</p>
+<p>唯一的反面例证是，如果我们精确地测量每条指令使用的时间，会发现在程序中一些指令的执行之间，<strong>CPU 好像会周期性地停顿</strong>
+。然而，每次处理器停顿，它随后会继续执行我们的程序，并不改变程序内存位置或寄存器的内容。</p>
+<p><strong>二、并发流</strong></p>
+<p>计算机系统中逻辑流有许多不同的形式。异常处理程序、进程、信号处理程序、线程和 Java 进程都是逻辑流的例子。</p>
+<p>一个逻辑流的执行在时间上与另一个流重叠，称为 <strong>并发流</strong>（concurrent flow），这两个流被称为 <strong>并发地运行</strong>。</p>
+<p>在上图中，进程 AB 并发运行、AC 并发运行，但 BC 没有并发地运行，因为 B 的最后一条指令在 C 的第一条指令之前执行。</p>
+<p>一个进程和其他进程轮流运行的概念称为 <strong>多任务</strong>（multitasking）。一个进程执行它的控制流的一部分的每一时间段叫做 <strong>时间片</strong>
+（time slice）。因此，多任务也叫做 <strong>时间分片</strong>（timeslicing）。例如上图中的进程 A 的流由两个时间片组成。</p>
+<p>注意，并发流的思想与流运行的处理器核数或者计算机数无关。如果两个流在时间上重叠，那么它们就是并发的，即使它们是运行在同一个处理器上。不过，有时我们会发现确认并行流是很有帮助的，它是并发流的一个真子集。<u>
+如果两个流并发地运行在不同的处理器核或者计算机上</u>，那么我们称它们为 <strong>并行流</strong>（parallel flow），它们 <strong>并行地运行</strong>
+（running in parallel），且 <strong>并行地执行</strong>（parallel execution）。</p>
+<p><strong>三、私有地址空间</strong></p>
+<p>进程也为每个程序提供一种假象，好像它独占地使用系统地址空间。在一台 n 位地址的机器上，地址空间是 <span class="arithmatex">\(2^n\)</span> 个可能地址的集合，0，1，⋯，<span class="arithmatex">\(2^n
+-1\)</span> 。进程为每个程序提供它自己的 <strong>私有地址空间</strong>。一般而言，和这个空间中某个地址相关联的那个内存字节是不能被其他进程读或者写的，从这个意义上说，这个地址空间是私有的。</p>
+<p>尽管和每个私有地址空间相关联的内存的内容一般是不同的，但是每个这样的空间都有相同的通用结构。</p>
+<p>下图展示了一个 x86-64 Linux 进程的地址空间的组织结构。</p>
+<p><img alt="Linux x86-64 运行时内存映像" src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/Linux x86-64
+运行时内存映像.png" /></p>
+<p>地址空间底部是保留给用户程序的，包括通常的代码、数据、堆和栈段。代码段总是从地址 0x400000
+开始。地址空间顶部保留给内核（操作系统常驻内存的部分）。地址空间的这个部分包含内核在代表进程执行指令时（比如当应用程序执行系统调用时）使用的代码、数据和栈。</p>
+<blockquote>
+<p>在 X86 中通常从 0x08048000 开始，而 0x0 - 0x08048000 为未使用，该数字由链接器决定，当然可以修改，但一般都不改。</p>
+</blockquote>
+<p><strong>四、用户模式和内核模式</strong></p>
+<p>为了使操作系统内核提供一个无懈可击的进程抽象，处理器必须提供一种机制，限制一个应用可以执行的指令以及它可以访问的地址空间范围。</p>
+<p>处理器通常是用某个控制寄存器中的一个 <strong>模式位</strong>（mode bit）来提供这种功能的，该寄存器描述了进程当前享有的特权。当设置了模式位时，进程就运行在 <strong>内核模式</strong> 中（有时叫做 <strong>超级用户模式</strong>）。一个运行在内核模式的进程可以执行指令集中的任何指令，并且可以访问系统中的任何内存位置。</p>
+<p>没有设置模式位时，进程就运行在用户模式中。用户模式中的进程不允许执行 <strong>特权指令</strong>（privileged
+instruction），比如停止处理器、改变模式位，或者发起一个 I/O
+操作。也不允许用户模式中的进程直接引用地址空间中内核区内的代码和数据。任何这样的尝试都会导致致命的保护故障。反之，用户程序必须通过系统调用接口间接地访问内核代码和数据。</p>
+<p>运行应用程序代码的进程初始时是在用户模式中的。<strong>进程从用户模式变为内核模式的唯一方法是通过诸如中断、故障或者陷入系统调用这样的异常。</strong> 当异常发生时，控制传递到异常处理程序，处理器将模式从用户模式变为内核模式。处理程序运行在内核模式中，当它返回到应用程序代码时，处理器就把模式从内核模式改回到用户模式。</p>
+<p>Linux 提供了一种聪明的机制，叫做 /proc 文件系统，它允许用户模式进程访问内核数据结构的内容。/proc
+文件系统将许多内核数据结构的内容输出为一个用户程序可以读的文本文件的层次结构。比如，你可以使用 / proc 文件系统找出一般的系统属性，比如
+CPU 类型（/proc/cpuinfo），或者某个特殊的进程使用的内存段（/proc/\<process-id>/maps）。2.6 版本的 Linux 内核引入 /sys
+文件系统，它输岀关于系统总线和设备的额外的低层信息。</p>
+<p><strong>五、上下文切换</strong></p>
+<p>现在我们知道每个进程有自己的私有地址空间，且多个进程可以并发的运行。</p>
+<p>注意到，当某个进程的时间片运行完毕后，CPU 会转而去执行另一个进程，但 CPU 的寄存器等数据却只有一套，那么如何保证在多任务执行的时候，数据的安全与正确呢？</p>
+<p>操作系统内核使用一种称为 <strong>上下文切换</strong>（context switch）的较高层形式的异常控制流来实现多任务。</p>
+<p>内核为每个进程维持一个 <strong>上下文</strong>（context），上下文就是内核重新启动一个被抢占的进程所需的状态，其内容包括：</p>
+<ul>
+<li>通用目的寄存器、浮点寄存器、程序计数器、用户栈、状态寄存器、内核栈</li>
+<li>各种内核数据结构，比如描述地址空间的页表、包含有关当前进程信息的进程表，以及包含进程已打开文件的信息的文件表</li>
+</ul>
+<p>① 在进程执行的某些时刻，内核可以决定抢占当前进程，并重新开始一个先前被抢占了的进程。这种决策就叫做 <strong>调度</strong>
+（scheduling），是由内核中称为 <strong>调度器</strong>（scheduler）的代码处理的。</p>
+<p>当内核选择一个新的进程运行时，我们说内核调度了这个进程。在内核调度了一个新的进程运行后，它就抢占当前进程，并使用一种称为上下文切换的机制来将控制转移到新的进程：</p>
+<ul>
+<li>保存当前进程的上下文</li>
+<li>恢复某个先前被抢占的进程被保存的上下文</li>
+<li>将控制传递给这个新恢复的进程。</li>
+</ul>
+<p>② 当内核代表用户执行系统调用时，可能会发生上下文切换。<strong>如果系统调用因为等待某个事件发生而阻塞，那么内核可以让当前进程休眠，切换到另一个进程。</strong></p>
+<blockquote>
+<p>比如，如果一个 read 系统调用需要访问磁盘，内核可以选择执行上下文切换，运行另外一个进程，而不是等待数据从磁盘到达。另一个示例是
+sleep 系统调用，它显式地请求让调用进程休眠。一般而言，即使系统调用没有阻塞，内核也可以决定执行上下文切换，而不是将控制返回给调用进程。</p>
+</blockquote>
+<p>③ 中断也可能引发上下文切换。</p>
+<blockquote>
+<p>比如，所有的系统都有某种产生周期性定时器中断的机制，通常为每 1 毫秒或每 10
+毫秒。每次发生定时器中断时，内核就能判定当前进程已经运行了足够长的时间，并切换到一个新的进程。</p>
+</blockquote>
+<p><img src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/process-context-switch.png" alt="process-context-switch" style="zoom:33%;" /></p>
+<p>如图所示的上下文切换案例，进程 A 初始运行在用户模式中，直到它通过执行系统调用 read 陷入到内核。内核中的陷阱处理程序请求来自磁盘控制器的
+DMA 传输，并且安排在磁盘控制器完成从磁盘到内存的数据传输后，磁盘中断处理器。</p>
+<p>磁盘取数据要用一段相对较长的时间（数量级为几十毫秒），所以内核执行从进程 A 到进程 B
+的上下文切换，而不是在这个间歇时间内等待，什么都不做。注意在切换之前，内核正代表进程 A
+在用户模式下执行指令（即没有单独的内核进程）。在切换的第一部分中，内核代表进程 A 在内核模式下执行指令。然后在某一时刻，它开始代表进程
+B（仍然是内核模式下）执行指令。在切换之后，内核代表进程 B 在用户模式下执行指令。</p>
+<p>随后，进程 B 在用户模式下运行一会儿，直到磁盘发出一个中断信号，表示数据已经从磁盘传送到了内存。内核判定进程 B
+已经运行了足够长的时间，就执行一个从进程 B 到进程 A 的上下文切换，将控制返回给进程 A 中紧随在系统调用 read 之后的那条指令。进程
+A 继续运行，直到下一次异常发生，依此类推。</p>
+<p><strong>六、Linux 进程控制</strong></p>
+<p>Linux 提供了大量从 C 程序中操作进程的系统调用，包括：获取进程 ID、创建和终止进程、回收子进程、让进程休眠、加载并运行进程。</p>
+<p>具体参考 CSAPP 513，本笔记仅对笔者认为的重点概念进行介绍。</p>
+<p>进程总是处于下面三种状态之一：</p>
+<ul>
+<li><strong>运行。</strong> 进程要么在 CPU 上 执行，要么在等待被执行且最终会被内核调度。</li>
+<li><strong>停止。</strong> 进程的执行被挂起（suspended），且不会被调度。当收到 SIGSTOP、SIGTSTP、SIGTTIN 或者 SIGTTOU 信号时，进程就停止，并且保持停止直到它收到一个
+  SIGCONT 信号，在这个时刻，进程再次开始运行。（信号是一种软件中断的形式，将在 8.5 节中详细描述。）</li>
+<li><strong>终止。</strong> 进程永远地停止了。进程会因为三种原因终止：<ul>
+<li>收到一个信号，该信号的默认行为是终止进程；</li>
+<li>从主程序返回；</li>
+<li>调用 exit 函数。</li>
+</ul>
+</li>
+</ul>
+<p>父进程通过调用 fork 函数创建一个新的运行的子进程。</p>
+<ul>
+<li>新创建的子进程几乎与父进程相同：<ul>
+<li>子进程得到与父进程用户级虚拟地址空间相同的（但是独立的）一份副本，包括代码和数据段、堆、共享库以及用户栈。</li>
+<li>子进程还获得与父进程任何打开文件描述符相同的副本，这就意味着当父进程调用 fork 时，子进程可以读写父进程中打开的任何文件。</li>
+</ul>
+</li>
+<li>父进程和新创建的子进程之间最大的区别在于它们有不同的 PID。</li>
+</ul>
+<p>fork 函数只被调用一次，却会返回两次：</p>
+<ul>
+<li>一次是在调用进程（父进程）中：fork 返回子进程的 PID</li>
+<li>一次是在新创建的子进程中：fork 返回 0</li>
+</ul>
+<p>因为子进程的 PID 总是为非零，返回值就提供一个明确的方法来分辨程序是在父进程还是在子进程中执行。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="mi">1</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">main</span><span class="p">()</span>
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="mi">2</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a><span class="mi">3</span><span class="w">     </span><span class="kt">pid_t</span><span class="w"> </span><span class="n">pid</span><span class="p">;</span>
+<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a><span class="mi">4</span><span class="w">     </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>
+<a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a><span class="mi">5</span><span class="w">     </span><span class="n">pid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Fork</span><span class="p">();</span><span class="w"> </span><span class="cm">/* Fork 是对 fork 函数的包装，加入了错误判断，是 CSAPP 书中定义的，见 P512 */</span>
+<a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a><span class="mi">6</span><span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">pid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* Child */</span>
+<a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a><span class="mi">7</span><span class="w">         </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;child : x=%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">++</span><span class="n">x</span><span class="p">);</span>
+<a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a><span class="mi">8</span><span class="w">         </span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a><span class="mi">9</span><span class="w">     </span><span class="p">}</span>
+<a id="__codelineno-28-11" name="__codelineno-28-11" href="#__codelineno-28-11"></a>
+<a id="__codelineno-28-12" name="__codelineno-28-12" href="#__codelineno-28-12"></a><span class="w">      </span><span class="cm">/* Parent */</span>
+<a id="__codelineno-28-13" name="__codelineno-28-13" href="#__codelineno-28-13"></a><span class="mi">10</span><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;parent: x=%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">--</span><span class="n">x</span><span class="p">);</span>
+<a id="__codelineno-28-14" name="__codelineno-28-14" href="#__codelineno-28-14"></a><span class="mi">11</span><span class="w">    </span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<a id="__codelineno-28-15" name="__codelineno-28-15" href="#__codelineno-28-15"></a><span class="p">}</span>
+</code></pre></div>
+<p>当在 Unix 系统上运行这个程序时，我们得到下面的结果：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>linux&gt;<span class="w"> </span>./fork_example
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>parent：x<span class="o">=</span><span class="m">0</span>
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>child<span class="w"> </span>：x<span class="o">=</span><span class="m">2</span>
+</code></pre></div>
+<p>上述程序的进程图如下：</p>
+<p><img src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/process-graph.png" alt="process-graph" style="zoom:33%;" /></p>
+<p>注意到第 5 行 fork 函数调用后，会新建一个子进程，由于子进程几乎是父进程的复制，因此子进程也会从第 6 行开始执行。</p>
+<p>从结果可以注意到：</p>
+<ul>
+<li><strong>调用一次</strong>，返回两次：fork 函数被父进程调用一次但是返回两次，一次是返回到父进程，一次是返回到新创建的子进程。对于只创建一个子进程的程序来说，这还是相当简单直接的。但是具有多个
+  fork 实例的程序可能就会令人迷惑，需要仔细地推敲了。</li>
+<li><strong>并发执行</strong>：父进程和子进程是并发运行的独立进程。内核能够以任意方式交替执行它们的逻辑控制流中的指令。在我们的系统上运行这个程序时，父进程先完成它的
+  printf 语句，然后是子进程。然而，在另一个系统上可能正好相反。一般而言，作为程序员，我们决不能对不同进程中指令的交替执行做任何假设。</li>
+<li><strong>相同但是独立的地址空间</strong>：如果能够在 fork
+  函数在父进程和子进程中返回后立即暂停这两个进程，我们会看到两个进程的地址空间都是相同的。每个进程有相同的用户栈、相同的本地变量值、相同的堆、相同的全局变量值，以及相同的代码。因此，在我们的示例程序中，当
+  fork 函数在第 6 行返回时，本地变量 x 在父进程和子进程中都为 1。然而，因为父进程和子进程是独立的进程，它们都有自己的私有地址空间。后面，父进程和子进程对
+  x 所做的任何改变都是独立的，不会反映在另一个进程的内存中。这就是为什么当父进程和子进程调用它们各自的 printf 语句时，它们中的变量
+  x 会有不同的值。</li>
+<li><strong>共享文件</strong>：当运行这个示例程序时，我们注意到父进程和子进程都把它们的输出显示在屏幕上。原因是子进程继承了父进程所有的打开文件。当父进程调用
+  fork 时，stdout 文件是打开的，并指向屏幕。子进程继承了这个文件，因此它的输出也是指向屏幕的。</li>
+</ul>
+<p>当一个进程由于某种原因终止时，内核并不是立即把它从系统中清除。相反，进程被保持在一种已终止的状态中，直到被它的父进程 <strong>回收</strong>
+（reaped）。当父进程回收已终止的子进程时，内核将子进程的退出状态传递给父进程，然后抛弃已终止的进程，从此时开始，该进程就不存在了。一个终止了但还未被回收的进程称为
+<strong>僵死进程</strong>（zombie）。</p>
+<p>如果一个父进程终止了，内核会安排 init 进程成为它的孤儿进程的养父。init 进程的 PID 为
+1，是在系统启动时由内核创建的，它不会终止，是所有进程的祖先。如果父进程没有回收它的僵死子进程就终止了，那么内核会安排 init
+进程去回收它们。不过，长时间运行的程序，比如 shell 或者服务器，总是应该回收它们的僵死子进程。即使僵死子进程没有运行，它们仍然消耗系统的内存资源。</p>
+<h3 id="_19">应用层：信号<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h3>
+<p>在此之前，我们知道，异常会导致控制流突变的出现，当事件发生时，会根据异常号跳转到异常处理程序进行处理，异常由软件和硬件共同实现；随后，介绍了操作系统利用异常来支持进程上下文切换的异常控制流模式（不太理解，似乎就是上下文切换也会导致控制流突变的意思）。</p>
+<p>在本节，将介绍更高层的 <strong>软件形式的异常，称为 Linux 信号，信号允许进程和内核中断其他进程</strong>。</p>
+<p>一个 <strong>信号</strong> 就是一条小消息，它 <strong>通知进程</strong> 系统中发生了一个某种类型的事件。</p>
+<p>比如，下图展示了 Linux 系统上支持的 30 种不同类型的信号（此处仅展示了部分）</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>名称</th>
+<th>默认行为</th>
+<th>相应事件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>SIGHUP</td>
+<td>终止</td>
+<td>终端线挂断</td>
+</tr>
+<tr>
+<td>2</td>
+<td>SIGINT</td>
+<td>终止</td>
+<td>来自键盘的中断</td>
+</tr>
+<tr>
+<td>3</td>
+<td>SIGQUIT</td>
+<td>终止</td>
+<td>来自键盘的退出</td>
+</tr>
+<tr>
+<td>4</td>
+<td>SIGILL</td>
+<td>终止</td>
+<td>非法指令</td>
+</tr>
+<tr>
+<td>5</td>
+<td>SIGTRAP</td>
+<td>终止并转储内存</td>
+<td>跟踪陷阱</td>
+</tr>
+<tr>
+<td>8</td>
+<td>SIGFPE</td>
+<td>终止并转储内存</td>
+<td>浮点异常</td>
+</tr>
+<tr>
+<td>9</td>
+<td>SIGKILL</td>
+<td>终止</td>
+<td>杀死程序</td>
+</tr>
+<tr>
+<td>11</td>
+<td>SIGSEGV</td>
+<td>终止并转储内存</td>
+<td>无效的内存引用（段故障）</td>
+</tr>
+<tr>
+<td>13</td>
+<td>SIGPIPE</td>
+<td>终止</td>
+<td>向一个没有读用户的管道做写操作</td>
+</tr>
+<tr>
+<td>29</td>
+<td>SIGIO</td>
+<td>终止</td>
+<td>在某个描述符上可执行 I/O 操作</td>
+</tr>
+<tr>
+<td>30</td>
+<td>SIGPWR</td>
+<td>终止</td>
+<td>电源故障</td>
+</tr>
+</tbody>
+</table>
+<p>低层的硬件异常是由内核异常处理程序处理的，正常情况下，对用户进程而言是不可见的。</p>
+<p>信号提供了一种机制，通知用户进程发生了这些异常。</p>
+<ul>
+<li>如果一个进程试图除以 0，那么内核就发送给它一个 SIGFPE 信号（号码 8）。</li>
+<li>如果一个进程执行一条非法指令，那么内核就发送给它一个 SIGILL 信号（号码 4）。</li>
+<li>如果进程进行非法内存引用，内核就发送给它一个 SIGSEGV 信号（号码 11）。</li>
+</ul>
+<p>其他信号对应于内核或者其他用户进程中较高层的软件事件。：</p>
+<ul>
+<li>如果当进程在前台运行时，你键入 Ctrl+C（也就是同时按下 Ctrl 键和 C 键），那么内核就会发送一个 SIGINT 信号（号码
+  2）给这个前台进程组中的每个进程。</li>
+<li>一个进程可以通过向另一个进程发送一个 SIGKILL 信号（号码 9）强制终止它。</li>
+<li>当一个子进程终止或者停止时，内核会发送一个 SIGCHLD 信号（号码 17）给父进程。</li>
+</ul>
+<p>传送一个信号到目的进程是由两个不同步骤组成的：</p>
+<ul>
+<li>
+<p><strong>发送信号。</strong> 内核通过更新目的进程上下文中的某个状态，发送（递送）一个信号给目的进程。发送信号可以有如下两种原因：</p>
+<ul>
+<li>内核检测到一个系统事件，比如除零错误或者子进程终止。</li>
+<li>一个进程调用了 kill 函数，显式地要求内核发送一个信号给目的进程。</li>
+</ul>
+</li>
+</ul>
+<p>一个进程可以发送信号给它自己。</p>
+<ul>
+<li><strong>接收信号。当目的进程被内核强迫以某种方式对信号的发送做出反应时，它就接收了信号。进程可以忽略这个信号，终止或者通过执行一个称为信号处理程序</strong>（signal handler）的用户层函数捕获这个信号。图 8-27 给出了信号处理程序捕获信号的基本思想。</li>
+</ul>
+<p>注意：信号和异常的主要不同之处在于，异常是由内核异常处理程序处理的，用户层无法干预，而信号则不同，虽然每个信号类型都有一个预定义的
+<strong>默认行为</strong>（进程终止、终止并转存、进程挂起知道被 SIGCONT 重启、忽略信号），但进程可以通过使用 signal 函数修改和信号相关联的默认行为。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;signal.h&gt;</span>
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="k">typedef</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="kt">sighandler_t</span><span class="p">)(</span><span class="kt">int</span><span class="p">);</span>
+<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>
+<a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a><span class="kt">sighandler_t</span><span class="w"> </span><span class="nf">signal</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">signum</span><span class="p">,</span><span class="w"> </span><span class="kt">sighandler_t</span><span class="w"> </span><span class="n">handler</span><span class="p">);</span>
+<a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a>
+<a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a><span class="c1">// 返回：若成功则为指向前次处理程序的指针，若出错则为 SIG_ERR（不设置 errno）。</span>
+</code></pre></div>
+<p>有关进程的更多信息，可查看 CSAPP 526。</p>
+<h2 id="todo">加载与执行(TODO)<a class="headerlink" href="#todo" title="Permanent link">&para;</a></h2>
+<blockquote>
+<ul>
+<li>CSAPP P484</li>
+<li>CSAPP P521 TODO</li>
+<li>CSAPP P584 TODO</li>
+</ul>
+</blockquote>
+<p>目前，我们已经首先介绍了程序从源代码经过编译与汇编生成可重定位目标程序，又经过链接器生成了可执行目标程序。此外，还知道二者用
+ELF 格式的具体文件组织情况，本章将介绍可执行目标程序如何载入内存并执行的。</p>
+<p>要运行可执行目标文件 <code>a.out</code>，只需要在 Linux shell 的命令行中输入：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>./a.out
+</code></pre></div>
+<p>由于 <code>a.out</code> 不是一个内置的 shell 命令，所以 shell 会认为 prog 是一个可执行目标文件，通过调用某个驻留在存储器中称为加载器（loader）的操作系统代码来运行它。</p>
+<p>任何 Linux 程序都可以通过调用 execve 函数来调用加载器 <strong>（TODO：详细介绍）</strong></p>
+<p>加载器将可执行目标文件中的代码和数据从磁盘复制到内存中，然后通过跳转到程序的第一条指令或入口点来运行该程序。这个将程序复制到内存并运行的过程叫做 <strong>加载</strong>。</p>
+<p>想要真正理解加载，必须明白进程、虚拟内存和内存映射的概念。此处仅做一个概述：</p>
+<p>Linux 系统中的每个程序都运行在一个进程上下文中，有自己的虚拟地址空间。当 shell 运行一个程序时:</p>
+<ul>
+<li>父 shell 进程生成一个子进程，它是父进程的一个复制。</li>
+<li>子进程通过 execve 系统调用启动加载器。</li>
+<li>加载器删除子进程现有的虚拟内存段，并创建一组新的代码、数据、堆和栈段。新的栈和堆段被初始化为零。通过将虚拟地址空间中的页映射到可执行文件的页大小的片（chunk），新的代码和数据段被初始化为可执行文件的内容。</li>
+<li>最后，加载器跳转到_start 地址，它最终会调用应用程序的 main 函数。除了一些头部信息，在加载过程中没有任何从磁盘到内存的数据复制。直到
+  CPU 引用一个被映射的虚拟页时才会进行复制，此时，操作系统利用它的页面调度机制自动将页面从磁盘传送到内存。</li>
+</ul>
+<p>静态链接的程序执行时如图所示：</p>
+<p><img src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/static-link-program.png" alt="static-link-program" style="zoom: 25%;" /></p>
+<p>动态链接的程序执行时如图所示：</p>
+<p><img src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/dynamic-link-program.png" alt="dynamic-link-program" style="zoom:25%;" /></p>
+<p>其中 <code>ld.so</code> 负责加载所有库及初始化 GOT（global offset table） 表。</p>
+<p>每个 Linux 程序都有一个运行时内存映像，如下图所示：</p>
+<p><img alt="Linux x86-64 运行时内存映像" src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/Linux x86-64
+运行时内存映像.png" /></p>
+<p>在 Linux 86-64 系统中：</p>
+<ul>
+<li><strong>代码段总是从地址 0x400000 处开始</strong></li>
+<li>数据段位于代码段之后：</li>
+<li>运行时 <strong>堆</strong> 在数据段之后，通过调用 malloc 库往上增长。</li>
+<li>堆后面的区域是为共享模块保留的。</li>
+<li>用户栈总是从最大的合法用户地址（ <span class="arithmatex">\(2^{48}−1\)</span> ）开始，向较小内存地址增长。</li>
+<li>栈上的区域，从地址 <span class="arithmatex">\(2^{48}\)</span> 开始，是为 <strong>内核</strong>（kernel）中的代码和数据保留的，所谓内核就是操作系统驻留在内存的部分。</li>
+</ul>
+<blockquote>
+<p>虚拟内存技术使得每个进程的内存映像可以使用相同的基本格式（e.g. 代码段总是从地址 0x400000 开始），而不用管代码和数据实际存放在物理内存的何处。</p>
+</blockquote>
+<p>为了简洁，我们把堆、数据和代码段画得彼此相邻，并且把栈顶放在了最大的合法用户地址处。实际上，由于 .data
+段有对齐要求，所以代码段和数据段之间是有间隙的。同时，在分配栈、共享库和堆段运行时地址的时候，链接器还会使用地址空间布局随机化。虽然每次程序运行时这些区域的地址都会改变，它们的相对位置是不变的。</p>
+<p>当加载器运行时，创建类似的内存映像。在程序头部表的引导下，加载器将可执行文件的片（chunk）复制到代码段和数据段。接下来，加载器跳转到程序的入口点，也就是 <code>_start</code>
+函数的地址。这个函数是在系统目标文件 ctrl.o 中定义的，对所有的 C 程序都是一样的。<code>_start</code> 函数调用系统启动函数
+__libc_start_main，该函数定义在 libc.so 中。它初始化执行环境，调用用户层的 main 函数，处理 main 函数的返回值，并且在需要的时候把控制返回给内核。</p>
+<p>以 C 代码为例：</p>
+<p><img alt="c_example" src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/c_example.png" /></p>
+<p>此处只是以源代码为例，实际上写入内存的是编译链接后的可执行目标文件。</p>
+<ul>
+<li>malloc 分配的是堆内存</li>
+<li>局部变量和函数调用均分配在栈内存上</li>
+<li>glb 为未初始化的全局变量，存储在 .bss 节中，而 .bss 属于数据段 Data</li>
+<li>str 为已初始化的全局变量，存储在 .data 节中，.data 同样属于数据段 Data</li>
+<li>main、sum、“Hello world!" 等存储在 .strtab 节中，.strtab 属于代码段 Text</li>
+</ul>
+<p><strong>程序的执行</strong></p>
+<p>将指令交给 CPU 处理，即为执行。</p>
+<h2 id="_20">虚拟内存<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h2>
+<p>一个系统中的进程是与其他进程共享 CPU 和主存资源的。为了更加高效地管理内存并且少出错，现代系统提供了一种对主存的抽象概念，称为
+<strong>虚拟内存（VM）</strong>，其提供了三个重要的能力：</p>
+<ul>
+<li>VM 在主存中自动缓存最近使用的存放在磁盘上的虚拟地址空间的内容，虚拟内存缓存中的块叫做页。对磁盘上页的引用会触发缺页，缺页将控制转移到操作系统中的缺页处理程序。缺页处理程序将页从磁盘复制到主存缓存，如果必要，将写回被驱逐的页。</li>
+<li>VM 简化了内存管理，进而又简化了链接、在进程间共享数据、进程的内存分配以及程序加载。</li>
+<li>VM 通过在每条页表条目加入保护位，从而简化了内存保护。</li>
+</ul>
+<p>在本章节中将首先介绍 <strong>物理和虚拟寻址</strong>，随后给出 <strong>地址空间</strong> 的概念。然后介绍什么是 <strong>虚拟内存</strong>，并给出虚拟内存扮演的工具角色：</p>
+<ul>
+<li>虚拟内存作为缓存的工具</li>
+<li>虚拟内存作为内存管理的工具</li>
+<li>虚拟内存作为内存保护的工具</li>
+</ul>
+<p>这三种工具属性也正对应了上面介绍的虚拟内存的三个重要能力。为了让你更了解硬件在支持虚拟内存中扮演的角色，将介绍 <strong>地址翻译</strong>
+（省略了大量细节，例如时序），在此期间，你将理解：<strong>① 如何结和高速缓存和虚拟内存 ② 快表 TLB ③ 多级页表</strong>。</p>
+<p>最后，结合 Linux 虚拟内存系统作为结尾，给出 <strong>内存映射</strong> 的概念，对 Linux 系统函数进行更深入的理解，并以动态分配内存结尾，给出 <strong>垃圾回收</strong> 的基本知识。</p>
+<h3 id="_21">一、物理和虚拟寻址<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h3>
+<p>计算机系统的主存被组织成一个由 M 个连续的字节大小的单元组成的数组。每字节都有一个唯一的 <strong>物理地址</strong>（Physical Address，PA）。</p>
+<p>CPU 直接使用物理地址访问内存，称为 <strong>物理寻址</strong>。</p>
+<p>早期的 PC 使用物理寻址，而且诸如数字信号处理器、嵌入式微控制器以及 Cray 超级计算机这样的系统仍然继续使用这种寻址方式。</p>
+<p>现代处理器使用的是一种称为 <strong>虚拟寻址</strong>（virtual addressing）的寻址形式，如图所示：</p>
+<p><img src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/virtual-addressing.png" alt="virtual-addressing" style="zoom:33%;" /></p>
+<p>为了使用虚拟寻址，CPU 首先会生成一个 <strong>虚拟地址</strong>（Virtual Address，VA）来访问主存，这个虚拟地址在被送到内存之前先转换成适当的物理地址，转换的过程叫做 <strong>地址翻译</strong>（address translation）。</p>
+<p>就像异常处理一样，地址翻译需要 CPU 硬件和操作系统之间的紧密合作。</p>
+<p>CPU 芯片上名为 <strong>内存管理单元</strong>（Memory Management Unit，MMU）的专用硬件，利用存放在主存中的查询表来动态翻译虚拟地址，该表的内容由操作系统管理。</p>
+<h3 id="_22">二、地址空间<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h3>
+<p><strong>地址空间</strong>（addressspace）是一个非负整数地址的有序集合，如果地址空间中的整数是连续的，那么我们说它是一个 <strong>线性地址空间</strong>
+（linear address space）。</p>
+<blockquote>
+<p>为了简化讨论，我们总是假设使用的是线性地址空间。</p>
+</blockquote>
+<p>在一个带虚拟内存的系统中，CPU 从一个有 <span class="arithmatex">\(N=2^n\)</span> 个地址的地址空间中生成虚拟地址，这个地址空间称为 <strong>虚拟地址空间</strong>（virtual
+addres sspace）：</p>
+<div class="arithmatex">\[
+\{0,1,2,⋯ ,N—1\}
+\]</div>
+<p>一个地址空间的大小是由表示最大地址所需要的位数来描述的。例如，一个包含 <span class="arithmatex">\(N=2^n\)</span> 个地址的虚拟地址空间就叫做一个 n
+位地址空间。现代系统通常支持 32 位或者 64 位虚拟地址空间。</p>
+<p>一个系统还有一个 <strong>物理地址空间</strong>（physical address space），对应于系统中物理内存的 M 个字节：</p>
+<div class="arithmatex">\[
+\{0,1,2,⋯ ,M—1\}
+\]</div>
+<p>M 不要求是 2 的幕，但是为了简化讨论，我们假设 <span class="arithmatex">\(M=2^m\)</span></p>
+<p>地址空间的概念将数据对象（字节）和对象的属性（地址）拆分为两个主体，而非统一的内容。</p>
+<p>也就是说，<strong>每个数据对象可以有多个独立的地址，其中每个地址都选自一个不同的地址空间</strong>，这就是虚拟内存的基本思想。</p>
+<p>主存中的每字节都有一个选自虚拟地址空间的虚拟地址和一个选自物理地址空间的物理地址。</p>
+<h3 id="_23">三、虚拟内存的作用<a class="headerlink" href="#_23" title="Permanent link">&para;</a></h3>
+<p>概念上而言，<strong>虚拟内存被组织为一个由存放在<u>磁盘</u>上的 N 个连续的字节大小的单元组成的数组</strong>，每字节都有一个唯一的虚拟地址，作为到数组的索引。</p>
+<h4 id="31">3.1 虚拟内存作为缓存的工具<a class="headerlink" href="#31" title="Permanent link">&para;</a></h4>
+<p>磁盘上数组的内容被缓存在主存中。和存储器层次结构中其他缓存一样，磁盘（较低层）上的数据被分割成块，这些块作为磁盘和主存（较高层）之间的传输单元。</p>
+<p>VM 系统对内存如下操作以处理上述情况：</p>
+<ul>
+<li>
+<p>虚拟内存分割为称为 <strong>虚拟页</strong>（Virtual Page，VP）的大小固定的块，每个虚拟页的大小为 <span class="arithmatex">\(P=2^p\)</span> 字节。</p>
+</li>
+<li>
+<p>物理内存被分割为 <strong>物理页</strong>（Physical Page，PP），大小也为 <span class="arithmatex">\(P\)</span> 字节。物理页也被称为 <strong>页帧</strong>（page frame）</p>
+</li>
+</ul>
+<p>在任意时刻，虚拟页面的集合都分为三个不相交的子集：</p>
+<ul>
+<li>
+<p><strong>未分配的：</strong> VM 系统还未分配（或者创建）的页。未分配的块没有任何数据和它们相关联，因此也就不占用任何磁盘空间。</p>
+</li>
+<li>
+<p><strong>缓存的：</strong> 当前已缓存在物理内存中的已分配页。</p>
+</li>
+<li>
+<p><strong>未缓存的：</strong> 未缓存在物理内存中的已分配页。</p>
+</li>
+</ul>
+<p><img src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/VM-use-main-memory-as-cache.png" alt="VM-use-main-memory-as-cache" style="zoom:33%;" /></p>
+<p>图中的示例展示了一个有 8 个虚拟页的小虚拟内存。虚拟页 0 和 3 还没有被分配，因此在磁盘上还不存在。虚拟页 1、4 和 6
+被缓存在物理内存中。页 2、5 和 7 已经被分配了，但是当前并未缓存在主存中。</p>
+<p>可以看到，虚拟内存存储在磁盘中，而 VM 系统将主存作为虚拟内存的缓存。</p>
+<p>在《处理器层次结构》章节，曾介绍了 SRAM 和 DRAM，本节中，笔者使用术语 SRAM 缓存来表示位于 CPU 和主存之间的 L1、L2 和 L3
+高速缓存，使用 DRAM 缓存来表示虚拟内存系统的缓存，也就是主存（在主存中缓存虚拟页）。</p>
+<p>由于 DRAM 比 SRAM 约慢 10 倍，而磁盘比 DRAM 慢约 10w 倍，因此，DRAM 不命中的代价远大于 SRAM 不命中。</p>
+<p>基于此，为了尽可能的让 DRAM 命中，虚拟页往往很大（4KB~2MB），而且不命中时的替换策略也十分重要，因为替换错虚拟页的代价也很昂贵！</p>
+<p>为了能使虚拟内存系统成功运行，需要解决如下问题：</p>
+<ul>
+<li>如何判定一个虚拟页是否已经缓存在 DRAM 中？</li>
+<li>若是，这个虚拟页存放在哪个物理页中？</li>
+<li>若不是，这个虚拟页存放在磁盘的那个位置？</li>
+</ul>
+<p>上述功能由软硬件联合提供，包括操作系统软件、MMU（内存管理单元）中的地址翻译硬件和存放在物理内存（主存）中的叫做 <strong>页表</strong> 的数据结构。</p>
+<p>每次地址翻译硬件将一个虚拟地址转换为物理地址时，都会读取页表。操作系统负责维护页表的内容，以及在磁盘与 DRAM 之间来回传送页。</p>
+<p><img src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/page-table.png" alt="page-table" style="zoom:33%;" /></p>
+<p>如图所示，页表是一个数组，其中每个元素称为页表条目（Page Table Entry, PTE），而 <strong>虚拟地址空间中的每个页在页表中一个固定偏移量处都有一个 PTE</strong>。</p>
+<p>图中，PTE 由有效位和 n 位地址字段组合而成（后续将对 PTE 进行进一步扩展）：</p>
+<ul>
+<li>有效位：该虚拟页是否被缓存在 DRAM 中</li>
+<li>地址字段<ul>
+<li>若有效位为 1，则地址字段为物理页的起始地址</li>
+<li>若有效位为 0<ul>
+<li>若为空地址，则表示该虚拟页还未被分配</li>
+<li>否则，地址字段为虚拟页在磁盘上的起始地址</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>图例中一共有 8 个虚拟页和 4 个物理页的系统的页表：</p>
+<ul>
+<li>四个虚拟页（VP 1、VP 2、VP 4 和 VP 7）当前被缓存在 DRAM 中</li>
+<li>两个页（VP 0 和 VP 5 ）还未被分配</li>
+<li>剩下的两个虚拟页（VP 3 和 VP 6）已经被分配了，但是当前还未被缓存</li>
+</ul>
+<p><strong>页命中</strong></p>
+<p>当 CPU 想读取包含在虚拟页 VP2 中的一个字时，首先地址翻译硬件将虚拟地址作为一个索引来定位 PTE2，并从内存中读取它，由于图中有效位为
+1，此时地址翻译硬件知道虚拟页已被缓存在 DRAM 主存中，此处的地址字段为物理页的起始地址。</p>
+<p>通过 <strong>物理页的起始地址 + 字的页内偏移量</strong>，即可得到该字的物理地址。</p>
+<p><strong>缺页</strong></p>
+<p>DRAM 缓存不命中称为缺页（page fault）。</p>
+<p>当 CPU 想读取包含在虚拟页 VP3 中的一个字时，类似的，从内存中定位并读取 PTE3，发现有效位为 0，但地址字段不为空，推断出 VP3
+已分配但未被缓存，于是 <strong>触发缺页异常</strong>。</p>
+<p>缺页异常调用内核中的缺页异常处理程序，该程序会选择一个牺牲页，假设牺牲页为 VP4，若 VP4 已经被修改，那么内核就需要将它复制回磁盘，接着修改
+VP4 对应的页表条目。</p>
+<p><img src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/page-table-after-page-fault.png" alt="page-table-after-page-fault" style="zoom:33%;" /></p>
+<p>接下来，缺页异常程序将让内核从磁盘复制 PV3 到内存中的 PP3，更新 PTE3，随后返回。</p>
+<p>当异常处理程序返回时，它会重新启动导致缺页的指令（再次读取 VP3 中的字），如图所示，此时 VP4 已被牺牲，而 VP3 成功缓存至主存
+DRAM 中，同时页表也进行了相应修改，页面能成功命中。</p>
+<blockquote>
+<p>虚拟内存的发明远远早于 CPU-内存之间差距加大引发产生 SRAM 之前，因此虚拟内存系统使用了和 SRAM 缓存不同的术语，即使他们的许多概念是相似的。</p>
+</blockquote>
+<p>在虚拟内存的习惯说法中，块被称为页，在磁盘和内存之间传送页的活动叫做交换（swapping）或者页面调度（paging）。</p>
+<p>所有现代系统均使用 <strong>按需页面调度</strong> 策略：页从磁盘换入 DRAM 和从 DRAM 换出磁盘，一直等待直到当不命中发生时才换入页面。</p>
+<p><strong>分配页面</strong></p>
+<p>当操作系统分配一个新的虚拟内存页时（例如调用 malloc），假设分配 VP5，其过程为在磁盘上创建空间并更新
+PTE5，使它指向在磁盘上新创建的页面，但并不更新有效位，因为该虚拟页未被读取，因此没有缓存到主存 DRAM 中。</p>
+<p><img src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/page-table-after-allocating-new-vp.png" alt="page-table-after-allocating-new-vp" style="zoom:33%;" /></p>
+<p><strong>局部性</strong></p>
+<p>尽管在整个运行过程中程序引用的不同页面的总数可能超出物理内存总的大小，但是局部性原则保证了在任意时刻，程序将趋向于在一个较小的 <strong>活动页面</strong>（active page）集合上工作，这个集合叫做 <strong>工作集</strong>（working set）或者 <strong>常驻集合</strong>（resident set）。在初始开销，也就是将工作集页面调度到内存中之后，接下来对这个工作集的引用将导致命中，而不会产生额外的磁盘流量。</p>
+<p>只要我们的程序有好的时间局部性，虚拟内存系统就能工作得相当好。但是，当然不是所有的程序都能展现良好的时间局部性。如果工作集的大小超出了物理内存的大小，那么程序将产生一种不幸的状态，叫做 <strong>抖动</strong>（thrashing），这时页面将不断地换进换出。虽然虚拟内存通常是有效的，但是如果一个程序性能慢得像爬一样，那么聪明的程序员会考虑是不是发生了抖动。</p>
+<h4 id="32">3.2 虚拟内存作为内存管理的工具<a class="headerlink" href="#32" title="Permanent link">&para;</a></h4>
+<p>通常来说虚拟地址空间往往比物理地址空间大得多，此时虚拟内存将 DRAM
+作为缓存。但有趣的是，一些早期的系统支持的是一个比物理内存更小的虚拟地址空间。然后，虚拟空间仍然是一个有用的机制，因为它可以大大简化内存管理，并且提供一种自然的保护内存的方法。</p>
+<p>到目前为止，我们都假设有一个单独的页表，将一个虚拟地址空间映射到物理地址空间。实际上，<strong>操作系统为每个进程提供了一个独立的页表</strong>，因而也就是一个独立的虚拟地址空间。</p>
+<p><img src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/page-table-per-process.png" alt="page-table-per-process" style="zoom:33%;" /></p>
+<p>在这个示例中，进程 i 的页表将 VP 1 映射到 PP 2，VP 2 映射到 PP 7。相似地，进程 j 的页表将 VP 1 映射到 PP 7，VP 2 映射到 PP
+10。注意，多个虚拟页面可以映射到同一个共享物理页面上。</p>
+<p>按需页面调度和独立的虚拟地址空间的结合，对系统中内存的使用和管理造成了深远的影响。特别地，VM 简化了链接和加载、代码和数据共享，以及应用程序的内存分配。</p>
+<ul>
+<li>
+<p><strong>简化链接。</strong> 独立的地址空间允许每个进程的内存映像使用相同的基本格式，而不管代码和数据实际存放在物理内存的何处。例如，一个给定的
+  Linux 系统上的每个进程都使用类似的内存格式。对于 64 位地址空间，代码段总是从虚拟地址 0x400000
+  开始。数据段跟在代码段之后，中间有一段符合要求的对齐空白。栈占据用户进程地址空间最高的部分，并向下生长。这样的一致性极大地简化了链接器的设计和实现，允许链接器生成完全链接的可执行文件，这些可执行文件是独立于物理内存中代码和数据的最终位置的。</p>
+</li>
+<li>
+<p><strong>简化加载。</strong> 虚拟内存还使得容易向内存中加载可执行文件和共享对象文件。要把目标文件中 .text 和 .data 节加载到一个新创建的进程中，Linux
+  加载器为代码和数据段分配虚拟页，把它们标记为无效的（即未被缓存的），将页表条目指向目标文件中适当的位置。有趣的是，加载器从不从磁盘到内存实际复制任何数据。在每个页初次被引用时，要么是
+  CPU 取指令时引用的，要么是一条正在执行的指令引用一个内存位置时引用的，虚拟内存系统会按照需要自动地调入数据页。</p>
+</li>
+</ul>
+<p>将一组连续的虚拟页映射到任意一个文件中的任意位置的表示法称作 <strong>内存映射</strong>（memory mapping）。Linux 提供一个称为 mmap
+  的系统调用，允许应用程序自己做内存映射。</p>
+<ul>
+<li><strong>简化共享。</strong> 独立地址空间为操作系统提供了一个管理用户进程和操作系统自身之间共享的一致机制。一般而言，每个进程都有自己私有的代码、数据、堆以及栈区域，是不和其他进程共享的。在这种情况中，操作系统创建页表，将相应的虚拟页映射到不连续的物理页面。</li>
+</ul>
+<p>然而，在一些情况中，还是需要进程来共享代码和数据。例如，每个进程必须调用相同的操作系统内核代码，而每个 C 程序都会调用 C
+标准库中的程序，比如 printf。操作系统通过将不同进程中适当的虚拟页面映射到相同的物理页面，从而安排多个进程共享这部分代码的一个副本，而不是在每个进程中都包括单独的内核和
+C 标准库的副本，如上图所示。</p>
+<ul>
+<li><strong>简化内存分配。</strong> 虚拟内存为向用户进程提供一个简单的分配额外内存的机制。当一个运行在用户进程中的程序要求额外的堆空间时（如调用
+  malloc 的结果），操作系统分配一个适当数字（例如 k）个连续的虚拟内存页面，并且将它们映射到物理内存中任意位置的 k
+  个任意的物理页面。由于页表工作的方式，操作系统没有必要分配 k 个连续的物理内存页面。页面可以随机地分散在物理内存中。</li>
+</ul>
+<h4 id="33">3.3 虚拟内存作为内存保护的工具<a class="headerlink" href="#33" title="Permanent link">&para;</a></h4>
+<p>任何现代计算机系统必须为操作系统提供手段来控制对内存系统的访问：</p>
+<ul>
+<li>不应该允许一个用户进程修改它的只读代码段。</li>
+<li>不应该允许它读或修改任何内核中的代码和数据结构。</li>
+<li>不应该允许它读或者写其他进程的私有内存</li>
+<li>不允许它修改任何与其他进程共享的虚拟页面，除非所有的共享者都显式地允许它这么做（通过调用明确的进程间通信系统调用）。</li>
+</ul>
+<p>提供独立的地址空间使得区分不同进程的私有内存变得容易。但是，地址翻译机制可以以一种自然的方式扩展到提供更好的访问控制。因为每次
+CPU 生成一个地址时，地址翻译硬件都会读一个 PTE，所以通过在 PTE 上添加一些额外的许可位来控制对一个虚拟页面内容的访问十分简单。</p>
+<p><img src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/page-table-with-protection.png" alt="page-table-with-protection" style="zoom:33%;" /></p>
+<p>如图所示，每个 PTE 中已经添加了三个许可位。SUP 位表示进程是否必须运行在内核（超级用户）模式下才能访问该页。运行在内核模式中的进程可以访问任何页面，但是运行在用户模式中的进程只允许访问那些
+SUP 为 0 的页面。READ 位和 WRITE 位控制对页面的读和写访问。例如，如果进程 i 运行在用户模式下，那么它有读 VP 0 和读写 VP 1
+的权限。然而，不允许它访问 VP 2。</p>
+<p>如果一条指令违反了这些许可条件，那么 CPU 就触发一个一般保护故障，将控制传递给一个内核中的异常处理程序。Linux shell
+一般将这种异常报告为“段错误（segmentation fault）”。</p>
+<h3 id="_24">四、地址翻译<a class="headerlink" href="#_24" title="Permanent link">&para;</a></h3>
+<p>如图展示了 MMU 如何利用页表来实现虚拟地址空间中的元素和物理空间中的元素的映射。</p>
+<p>CPU 中的一个控制寄存器，<strong>页表基址寄存器</strong>（Page Table Base Register，PTBR）指向当前页表。</p>
+<p>n 位的虚拟地址包含两个部分：一个 p 位的 <strong>虚拟页面偏移</strong>（Virtual Page Offset，VPO）和一个 n-p 位的 <strong>虚拟页号</strong>（Virtual Page
+Number，VPN）。</p>
+<p>MMU 利用 VPN 来选择适当的 PTE。例如，VPN 0 选择 PTE 0，VPN 1 选择 PTE 1，以此类推。将页表条目中 <strong>物理页号</strong>（Physical Page
+Number，PPN）和虚拟地址中的 VPO 串联起来，就得到相应的物理地址。</p>
+<p>注意，因为物理和虚拟页面都是 P 字节的，所以 <strong>物理页面偏移</strong>（Physical Page Offset，PPO）和 VPO 是相同的。</p>
+<p><img src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/address-translation-with-page-table.png" alt="address-translation-with-page-table" style="zoom:33%;" /></p>
+<p>更详细参考 CSAPP 568。</p>
+<p><strong>结合高速缓存和虚拟内存</strong></p>
+<p>将页表条目 PTE 存储在高速缓存 SRAM 中。</p>
+<p><strong>利用 TLB 加速地址翻译</strong></p>
+<p>正如我们看到的，每次 CPU 产生一个虚拟地址，MMU 就必须查阅一个 PTE，以便将虚拟地址翻译为物理地址。</p>
+<p>若结合了高速缓存，那么如果 PTE 碰巧缓存在 SRAM 中，那么开销就得到一定程度的下降。</p>
+<p>为了进一步节约开销，许多系统在 MMU 中包括了一个关于 PTE 的小的缓存，称为 <strong>快表</strong>（Translation Lookaside Buffer，TLB）。</p>
+<p>TLB 是一个小的、虚拟寻址的缓存，其中每一行都保存着一个由单个 PTE 组成的块。</p>
+<p><strong>多级页表</strong></p>
+<p>我们一直假设系统只用一个单独的页表来进行地址翻译。但是如果我们有一个 32 位的地址空间、4KB 的页面和一个 4 字节的
+PTE，那么即使应用所引用的只是虚拟地址空间中很小的一部分，也总是需要一个 4MB 的页表驻留在内存中。对于地址空间为 64
+位的系统来说，问题将变得更复杂。</p>
+<p>用来 <strong>压缩页表</strong> 的常用方法是 <strong>使用层次结构的页表</strong>。</p>
+<p>假设 32 位虚拟地址空间被分为 4KB 的页，而每个页表条目都是 4 字节。还假设在这一时刻，虚拟地址空间有如下形式：内存的前 2K
+个页面分配给了代码和数据，接下来的 6K 个页面还未分配，再接下来的 1023 个页面也未分配，接下来的 1 个页面分配给了用户栈。</p>
+<p>下图展示了我们如何为这个虚拟地址空间构造一个两级的页表层次结构：</p>
+<p><img src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/two-level-page-table-hierarchy.png" alt="two-level-page-table-hierarchy" style="zoom:33%;" /></p>
+<p>一级页表中的每个 PTE 负责映射虚拟地址空间中一个 4MB 的 <strong>片</strong>（chunk），这里每一片都是由 1024 个连续的页面组成的。比如，PTE 0
+映射第一片，PTE 1 映射接下来的一片，以此类推。假设地址空间是 4GB，1024 个 PTE 已经足够覆盖整个空间了。</p>
+<p>二级页表中的每个 PTE 都负责映射一个 4KB 的虚拟内存页面，就像我们查看只有一级的页表一样。注意，使用 4 字节的 PTE，每个一级和二级页表都是
+4KB 字节，这刚好和一个页面的大小是一样的。</p>
+<p>这种方法从两个方面减少了内存要求：</p>
+<ul>
+<li>第一，如果一级页表中的一个 PTE 是空的，那么相应的二级页表就根本不会存在。这代表着一种巨大的潜在节约，因为对于一个典型的程序，4GB
+  的虚拟地址空间的大部分都会是未分配的。</li>
+<li>第二，只有一级页表才需要总是在主存中；虚拟内存系统可以在需要时创建、页面调入或调出二级页表，这就减少了主存的压力；只有最经常使用的二级页表才需要缓存在主存中。</li>
+</ul>
+<p>由于更改了页表结构，虚拟地址也需要进行相应的修改：</p>
+<p><img src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/address-translate-with-k-level-page-table.png" alt="address-translate-with-k-level-page-table" style="zoom:33%;" /></p>
+<p>VPN1 代表一级页表，每个高级页表的 PTE 都指向其子级页表的基址，VPN k 则指向对应的物理地址（或磁盘上的虚拟页面地址）。</p>
+<p>为了构造物理地址，在能够确定 PPN 之前，MMU 必须访问 k 个 PTE。</p>
+<p>访问 k 个 PTE，第一眼看上去昂贵而不切实际。然而，这里 TLB 能够起作用，正是通过将不同层次上页表的 PTE
+缓存起来。实际上，带多级页表的地址翻译并不比单级页表慢很多。</p>
+<h3 id="linux">五、Linux 虚拟内存系统<a class="headerlink" href="#linux" title="Permanent link">&para;</a></h3>
+<p>本章将对 Linux 的虚拟内存系统做一个描述，使你能够大致了解一个实际的操作系统是如何组织虚拟内存，以及如何处理缺页的。</p>
+<p>如图所示，<strong>Linux 为<u>每个进程</u>维护了一个单独的虚拟地址空间</strong>：</p>
+<ul>
+<li>熟悉的代码、数据、堆、共享库以及栈段。</li>
+<li>内核虚拟内存，位于用户栈之上。</li>
+</ul>
+<p><img src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/vm-of-linux-process.png" alt="vm-of-linux-process" style="zoom: 33%;" /></p>
+<p>内核虚拟内存包含内核中的代码和数据结构：</p>
+<ul>
+<li>
+<p>某些区域被映射到所有进程共享的物理页面。例如，每个进程共享内核的代码和全局数据结构。</p>
+</li>
+<li>
+<p>其他区域包含每个进程都不相同的数据。比如说，页表、内核在进程的上下文中执行代码时使用的栈，以及记录虚拟地址空间当前组织的各种数据结构。</p>
+</li>
+</ul>
+<p><strong>那虚拟内存区域到底指什么？</strong></p>
+<p>Linux 将虚拟内存组织成一些区域（也叫做段）的集合。一个区域（area）就是已经存在着的（已分配的）虚拟内存的连续片（chunk），这些页是以某种方式相关联的。例如，代码段、数据段、堆、共享库段，以及用户栈都是不同的区域。</p>
+<p>每个存在的虚拟页面都保存在某个区域中，而不属于某个区域的虚拟页是不存在的，并且不能被进程引用。</p>
+<p>区域的概念很重要，因为它允许虚拟地址空间有间隙。</p>
+<p>内核不用记录那些不存在的虚拟页，而这样的页也不占用内存、磁盘或者内核本身中的任何额外资源。</p>
+<p>内核为系统中的每个进程维护一个单独的任务结构（源代码中的
+task_struct）。任务结构中的元素包含或者指向内核运行该进程所需要的所有信息（例如，PID、指向用户栈的指针、可执行目标文件的名字，以及程序计数器）。</p>
+<p><img src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/linux-vm.png" alt="linux-vm" style="zoom: 33%;" /></p>
+<p>任务结构中的一个条目指向 mm_struct，它描述了虚拟内存的当前状态。我们感兴趣的两个字段是 pgd 和 mmap，其中 pgd
+指向第一级页表（页全局目录）的基址，而 mmap 指向一个 vm_area_structs（区域结构）的链表，其中每个 vm_area_structs
+都描述了当前虚拟地址空间的一个区域。当内核运行这个进程时，就将 pgd 存放在 CR3 控制寄存器中。</p>
+<p>为了我们的目的，一个具体区域的区域结构包含下面的字段：</p>
+<ul>
+<li>vm_start：指向这个区域的起始处。</li>
+<li>vm_end：指向这个区域的结束处。</li>
+<li>vm_prot：描述这个区域内包含的所有页的读写许可权限。</li>
+<li>vm_flags：描述这个区域内的页面是与其他进程共享的，还是这个进程私有的（还描述了其他一些信息）。</li>
+<li>vm_next：指向链表中下—区域结构。</li>
+</ul>
+<h3 id="_25">六、内存映射<a class="headerlink" href="#_25" title="Permanent link">&para;</a></h3>
+<p>Linux 通过将一个虚拟内存区域与一个磁盘上的 <strong>对象</strong>（object）关联起来，以初始化这个虚拟内存区域的内容，这个过程称为 <strong>内存映射</strong>（memory mapping），虚拟内存区域可以映射到两种类型的对象中的一种：</p>
+<ol>
+<li><strong>Linux 文件系统中的普通文件：</strong> <u>一个区域可以映射到一个普通磁盘文件的连续部分</u>
+   ，例如一个可执行目标文件。文件区（section）被分成页大小的片，每一片包含一个虚拟页面的初始内容。因为按需进行页面调度，所以这些虚拟页面没有实际交换进入物理内存，直到
+   CPU 第一次引用到页面（即发射一个虚拟地址，落在地址空间这个页面的范围之内）。如果区域比文件区要大，那么就用零来填充这个区域的余下部分。</li>
+<li><strong>匿名文件：</strong> 一个区域也可以映射到一个匿名文件，匿名文件是由内核创建的，包含的全是二进制零。CPU
+   第一次引用这样一个区域内的虚拟页面时，内核就在物理内存中找到一个合适的牺牲页面，如果该页面被修改过，就将这个页面换出来，用二进制零覆盖牺牲页面并更新页表，将这个页面标记为是驻留在内存中的。注意在磁盘和内存之间并没有实际的数据传送。因为这个原因，映射到匿名文件的区域中的页面有时也叫做请
+   <strong>求二进制零的页</strong>（demand-zero page）。</li>
+</ol>
+<p>无论在哪种情况中，一旦一个虚拟页面被初始化了，它就在一个由内核维护的专门的 <strong>交换文件</strong>（swap file）之间换来换去。交换文件也叫做 <strong>交换空间</strong>（swap space）或者 <strong>交换区域</strong>（swap area）。需要意识到的很重要的一点是，在任何时刻，交换空间都限制着当前运行着的进程能够分配的虚拟页面的总数。</p>
+<blockquote>
+<p>交换空间就是虚拟内存存储的地方，通常就是在磁盘上的一个文件！</p>
+</blockquote>
+<p><strong>再看共享对象</strong></p>
+<p>进程这一抽象能够为每个进程提供自己私有的虚拟地址空间，可以免受其他进程的错误读写。不过，许多进程有相同的只读代码区域，例如，每个
+C 程序都需要来自标准 C 库的诸如 printf 这样的函数。</p>
+<p>内存映射给我们提供了一种清晰的机制，用来控制多个进程如何共享对象。</p>
+<p>一个对象可以被映射到虚拟内存的一个区域，要么作为共享对象，要么作为私有对象。</p>
+<ul>
+<li>如果一个进程将一个共享对象映射到它的虚拟地址空间的一个区域内，那么这个进程对这个区域的任何写操作，对于那些也把这个共享对象映射到它们虚拟内存的其他进程而言，也是可见的。而且，这些变化也会反映在磁盘上的原始对象中。</li>
+<li>另一方面，对于一个映射到私有对象的区域做的改变，对于其他进程来说是不可见的，并且进程对这个区域所做的任何写操作都不会反映在磁盘上的对象中。</li>
+</ul>
+<p>一个映射到共享对象的虚拟内存区域叫做 <strong>共享区域</strong>。类似地，也有 <strong>私有区域</strong>。</p>
+<p>如图所示，进程 1 将一个共享对象映射到它的虚拟内存的一个区域中，随后进程 2 将同一个共享对象映射到它的地址空间（并不一定要和进程
+1 在相同的虚拟地址处。</p>
+<p>因为每个对象都有一个唯一的文件名，内核可以迅速地判定进程 1 已经映射了这个对象，而且可以使进程 2 中的页表条目指向相应的物理页面。</p>
+<p><img src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/share-object.png" alt="share-object" style="zoom:20%;" /></p>
+<p>私有对象使用一种叫做 <strong>写时复制</strong>（copy-on-write）的巧妙技术被映射到虚拟内存中。一个私有对象开始生命周期的方式基本上与共享对象的一样，在物理内存中只保存有私有对象的一份副本。</p>
+<p>对于每个映射私有对象的进程，相应私有区域的页表条目都被标记为只读，并且区域结构被标记为私有的写时复制。只要没有进程试图写它自己的私有区域，它们就可以继续共享物理内存中对象的一个单独副本。然而，只要有一个进程试图写私有区域内的某个页面，那么这个写操作就会触发一个保护故障。</p>
+<p><img src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/private-object.png" alt="private-object" style="zoom:20%;" /></p>
+<p>当故障处理程序注意到保护异常是由于进程试图写私有的写时复制区域中的一个页面而引起的，它就会在物理内存中创建这个页面的一个新副本，更新页表条目指向这个新的副本，然后恢复这个页面的可写权限，如图
+b 所示。当故障处理程序返回时，CPU 重新执行这个写操作，现在在新创建的页面上这个写操作就可以正常执行了。</p>
+<p>通过延迟私有对象中的副本直到最后可能的时刻，写时复制最充分地使用了稀有的物理内存。</p>
+<p><strong>再看 fork 函数</strong></p>
+<p>既然我们理解了虚拟内存和内存映射，那么我们可以清晰地知道 fork 函数是如何创建一个带有自己独立虚拟地址空间的新进程的。</p>
+<p>当 fork 函数被当前进程调用时，内核为新进程创建各种数据结构，并分配给它一个唯一的 PID。为了给这个新进程创建虚拟内存，它创建了当前进程的
+mm_struct、区域结构和页表的原样副本。它将两个进程中的每个页面都标记为只读，并将两个进程中的每个区域结构都标记为私有的写时复制。</p>
+<p>当 fork 在新进程中返回时，新进程现在的虚拟内存刚好和调用 fork
+时存在的虚拟内存相同。当这两个进程中的任一个后来进行写操作时，写时复制机制就会创建新页面，因此，也就为每个进程保持了私有地址空间的抽象概念。</p>
+<p><strong>再看 execve 函数</strong></p>
+<p>虚拟内存和内存映射在将程序加载到内存的过程中也扮演着关键的角色。既然已经理解了这些概念，我们就能够理解 execve
+函数实际上是如何加载和执行程序的。假设运行在当前进程中的程序执行了如下的 execve 调用：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>execve<span class="o">(</span><span class="s2">&quot;a.out&quot;</span>,<span class="w"> </span>NULL,<span class="w"> </span>NULL<span class="o">)</span><span class="p">;</span>
+</code></pre></div>
+<p>正如之前学到的，execve 函数在当前进程中加载并运行包含在可执行目标文件 a.out 中的程序，用 a.out 程序有效地替代了当前程序。加载并运行
+a.out 需要以下几个步骤：</p>
+<ol>
+<li><strong>删除已存在的用户区域。</strong> 删除当前进程虚拟地址的用户部分中的已存在的区域结构。</li>
+<li><strong>映射私有区域。</strong> 为新程序的代码、数据、bss 和栈区域创建新的区域结构。所有这些新的区域都是私有的、写时复制的。代码和数据区域被映射为
+   a.out 文件中的. text 和. data 区。bss 区域是请求二进制零的，映射到匿名文件，其大小包含在 a.out 中。栈和堆区域也是请求二进制零的，初始长度为零。图
+   9-31 概括了私有区域的不同映射。</li>
+<li><strong>映射共享区域。</strong> 如果 a.out 程序与共享对象（或目标）链接，比如标准 C 库
+   libc.so，那么这些对象都是动态链接到这个程序的，然后再映射到用户虚拟地址空间中的共享区域内。</li>
+<li><strong>设置程序计数器（PC）。</strong> execve 做的最后一件事情就是设置当前进程上下文中的程序计数器，使之指向代码区域的入口点。</li>
+</ol>
+<p><img src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/execve-example.png" alt="execve-example" style="zoom:33%;" /></p>
+<p>下一次调度这个进程时，它将从这个入口点开始执行。Linux 将根据需要换入代码和数据页面。</p>
+<p><strong>使用 mmap 函数的用户级内存映射</strong></p>
+<p>mmap 函数要求内核创建一个新的虚拟内存区域，最好是从地址 start 开始的一个区域，并将文件描述符 fd
+指定的对象的一个连续的片（chunk）映射到这个新的区域。</p>
+<p><img src="https://happytsing-figure-bed.oss-cn-hangzhou.aliyuncs.com/pwn/mmap-example.png" alt="mmap-example" style="zoom:33%;" /></p>
+<h3 id="_26">七、动态内存分配<a class="headerlink" href="#_26" title="Permanent link">&para;</a></h3>
+<p>就是堆的分配，参考 CSAPP P589</p>
+<h3 id="_27">八、垃圾回收<a class="headerlink" href="#_27" title="Permanent link">&para;</a></h3>
+<h2 id="io">IO<a class="headerlink" href="#io" title="Permanent link">&para;</a></h2>
+<h2 id="_28">并发<a class="headerlink" href="#_28" title="Permanent link">&para;</a></h2>
+<h2 id="c">C 程序中常见的与内存有关的错误<a class="headerlink" href="#c" title="Permanent link">&para;</a></h2>
+<p>csapp P609</p>
+<h2 id="aslr-pie">ASLR 与 PIE<a class="headerlink" href="#aslr-pie" title="Permanent link">&para;</a></h2>
+<p>csapp p198</p>
+<h2 id="cannary">cannary<a class="headerlink" href="#cannary" title="Permanent link">&para;</a></h2>
+<h2 id="nx">Nx<a class="headerlink" href="#nx" title="Permanent link">&para;</a></h2>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../../soot/usage/" class="md-footer__link md-footer__link--prev" aria-label="上一页: Usage">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                Usage
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../%E4%B8%AD%E7%A7%91%E5%A4%A7%E3%80%8A%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E3%80%8B/" class="md-footer__link md-footer__link--next" aria-label="下一页: 中科大《编译原理》">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                中科大《编译原理》
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 HappyTsing
+    </div>
+  
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/HappyTsing" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://space.bilibili.com/176452398/" target="_blank" rel="noopener" title="space.bilibili.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M488.6 104.1c16.7 18.1 24.4 39.7 23.3 65.7v202.4c-.4 26.4-9.2 48.1-26.5 65.1-17.2 17-39.1 25.9-65.5 26.7H92.02c-26.45-.8-48.21-9.8-65.28-27.2C9.682 419.4.767 396.5 0 368.2V169.8c.767-26 9.682-47.6 26.74-65.7C43.81 87.75 65.57 78.77 92.02 78h29.38L96.05 52.19c-5.75-5.73-8.63-13-8.63-21.79 0-8.8 2.88-16.06 8.63-21.797C101.8 2.868 109.1 0 117.9 0s16.1 2.868 21.9 8.603L213.1 78h88l74.5-69.397C381.7 2.868 389.2 0 398 0c8.8 0 16.1 2.868 21.9 8.603 5.7 5.737 8.6 12.997 8.6 21.797 0 8.79-2.9 16.06-8.6 21.79L394.6 78h29.3c26.4.77 48 9.75 64.7 26.1zm-38.8 69.7c-.4-9.6-3.7-17.4-10.7-23.5-5.2-6.1-14-9.4-22.7-9.8H96.05c-9.59.4-17.45 3.7-23.58 9.8-6.14 6.1-9.4 13.9-9.78 23.5v194.4c0 9.2 3.26 17 9.78 23.5s14.38 9.8 23.58 9.8H416.4c9.2 0 17-3.3 23.3-9.8 6.3-6.5 9.7-14.3 10.1-23.5V173.8zm-264.3 42.7c6.3 6.3 9.7 14.1 10.1 23.2V273c-.4 9.2-3.7 16.9-9.8 23.2-6.2 6.3-14 9.5-23.6 9.5-9.6 0-17.5-3.2-23.6-9.5-6.1-6.3-9.4-14-9.8-23.2v-33.3c.4-9.1 3.8-16.9 10.1-23.2 6.3-6.3 13.2-9.6 23.3-10 9.2.4 17 3.7 23.3 10zm191.5 0c6.3 6.3 9.7 14.1 10.1 23.2V273c-.4 9.2-3.7 16.9-9.8 23.2-6.1 6.3-14 9.5-23.6 9.5-9.6 0-17.4-3.2-23.6-9.5-7-6.3-9.4-14-9.7-23.2v-33.3c.3-9.1 3.7-16.9 10-23.2 6.3-6.3 14.1-9.6 23.3-10 9.2.4 17 3.7 23.3 10z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:<wangleqing00@gmail.com>" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M498.1 5.6c10.1 7 15.4 19.1 13.5 31.2l-64 416c-1.5 9.7-7.4 18.2-16 23s-18.9 5.4-28 1.6L284 427.7l-68.5 74.1c-8.9 9.7-22.9 12.9-35.2 8.1S160 493.2 160 480v-83.6c0-4 1.5-7.8 4.2-10.7l167.6-182.9c5.8-6.3 5.6-16-.4-22s-15.7-6.4-22-.7L106 360.8l-88.3-44.2C7.1 311.3.3 300.7 0 288.9s5.9-22.8 16.1-28.7l448-256c10.7-6.1 23.9-5.5 34 1.4z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.annotate", "content.code.select", "content.code.copy", "content.tabs.link", "content.tooltips", "navigation.indexes", "navigation.instant", "navigation.tabs", "navigation.top", "navigation.footer", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.ebd0bdb7.min.js"></script>
+      
+        <script src="../../../js/baidu-analytics.js"></script>
+      
+        <script src="../../../js/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
